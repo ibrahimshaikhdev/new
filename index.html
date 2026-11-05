@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GenAI interview MCQs: 200 questions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EAF0EC; --sheet:#FAFCFA; --ink:#1B2631; --ink-soft:#4B5A67;
+  --print:#2A7480; --print-soft:#A9CBCC; --print-tint:#DCEBE9;
+  --ok:#1F6E43; --ok-tint:#DCEEE2; --bad:#B23A2F; --bad-tint:#F6E0DC;
+  --fill:#22313F; --on-fill:#FAFCFA; --on-strong:#FFFFFF;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1719; --sheet:#162124; --ink:#E2EBE7; --ink-soft:#9AADA8;
+    --print:#6DB6BF; --print-soft:#2F5458; --print-tint:#1C3134;
+    --ok:#62C690; --ok-tint:#16301F; --bad:#F2806F; --bad-tint:#3A1C18;
+    --fill:#E2EBE7; --on-fill:#0F1719; --on-strong:#0F1719;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1719; --sheet:#162124; --ink:#E2EBE7; --ink-soft:#9AADA8;
+  --print:#6DB6BF; --print-soft:#2F5458; --print-tint:#1C3134;
+  --ok:#62C690; --ok-tint:#16301F; --bad:#F2806F; --bad-tint:#3A1C18;
+  --fill:#E2EBE7; --on-fill:#0F1719; --on-strong:#0F1719;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+:focus-visible{outline:2px solid var(--print);outline-offset:2px;border-radius:6px}
+p{margin:0}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;display:flex;align-items:center;gap:14px;height:58px;padding:0 20px;background:var(--paper);border-bottom:1.5px solid var(--print)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-stretch:118%;font-weight:800;font-size:1.05rem;letter-spacing:-.01em;white-space:nowrap}
+.brand-mark{width:22px;height:22px;border-radius:50%;border:2px solid var(--print);position:relative;flex:none}
+.brand-mark::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--fill)}
+.top-stats{margin-left:auto;font-size:.92rem;color:var(--ink-soft);text-align:right}
+.top-stats b{color:var(--ink);font-variant-numeric:tabular-nums}
+.menu-btn{display:none;align-items:center;border:1.5px solid var(--print);border-radius:999px;padding:5px 14px;font-weight:700;font-size:.9rem;flex:none}
+
+/* layout */
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);max-width:1200px;margin:0 auto}
+.side{position:sticky;top:calc(58px + env(safe-area-inset-top,0px));align-self:start;max-height:calc(100vh - 58px - env(safe-area-inset-top,0px));max-height:calc(100dvh - 58px - env(safe-area-inset-top,0px));overflow-y:auto;padding:20px 14px 40px;border-right:1px solid var(--print-soft)}
+.scrim{display:none}
+main{padding:28px clamp(16px,4vw,48px) 72px;min-width:0;outline:none}
+
+/* sidebar */
+.nav-top{display:grid;gap:4px;margin-bottom:20px}
+.nav-link{display:flex;justify-content:space-between;align-items:center;width:100%;padding:9px 12px;border-radius:9px;font-weight:700}
+.nav-link:hover{background:var(--print-tint)}
+.nav-link[aria-current="true"]{background:var(--fill);color:var(--on-fill)}
+.nav-link .count{color:inherit;opacity:.75}
+.sections{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.sec{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;width:100%;padding:6px 8px;border-radius:9px}
+.sec:hover{background:var(--print-tint)}
+.sec[aria-current="true"]{background:var(--print-tint);box-shadow:inset 0 0 0 1.5px var(--print)}
+.sec-letter{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--print);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.78rem;color:var(--print);flex:none}
+.sec-letter.full{background:var(--print);color:var(--sheet)}
+.sec-name{font-family:var(--display);font-weight:700;font-size:.95rem;line-height:1.25}
+.count{font-size:.78rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+.subs{list-style:none;margin:2px 0 0 21px;padding:0 0 0 14px;border-left:1.5px dotted var(--print-soft)}
+.sub{display:flex;justify-content:space-between;gap:8px;width:100%;padding:5px 8px;border-radius:7px;font-size:.9rem;color:var(--ink-soft)}
+.sub:hover{background:var(--print-tint);color:var(--ink)}
+.sub[aria-current="true"]{background:var(--print-tint);color:var(--ink);font-weight:700;box-shadow:inset 3px 0 0 var(--print)}
+
+/* quiz header */
+.quiz,.board{max-width:800px}
+.set-head{display:flex;align-items:center;gap:14px}
+.set-head .sec-letter{width:44px;height:44px;font-size:1.05rem;border-width:2px}
+.set-title{font-family:var(--display);font-stretch:112%;font-weight:800;font-size:clamp(1.45rem,3vw,1.95rem);line-height:1.1;margin:0;letter-spacing:-.015em}
+.set-sub{color:var(--ink-soft);margin-top:3px}
+.modes{display:inline-flex;flex-wrap:wrap;border:1.5px solid var(--print);border-radius:22px;padding:3px;margin:20px 0 14px;gap:2px}
+.mode{padding:6px 14px;border-radius:999px;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.mode:hover{color:var(--ink)}
+.mode[aria-pressed="true"]{background:var(--fill);color:var(--on-fill)}
+.strip{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.jump{margin:0 0 18px}
+.jump summary{cursor:pointer;font-weight:700;color:var(--print);margin-bottom:10px;width:max-content}
+.dot{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--print-soft);font-size:.62rem;font-weight:700;display:grid;place-items:center;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.dot:hover{border-color:var(--print);color:var(--ink)}
+.dot.ok{background:var(--ok);border-color:var(--ok);color:var(--on-strong)}
+.dot.bad{background:var(--bad);border-color:var(--bad);color:var(--on-strong)}
+.dot.cur{outline:2px solid var(--ink);outline-offset:2px}
+
+/* question sheet */
+.sheet{position:relative;background:var(--sheet);border:1.5px solid var(--print-soft);border-radius:14px;padding:24px 26px 26px 50px}
+.sheet::before{content:"";position:absolute;left:16px;top:24px;bottom:24px;width:10px;background:repeating-linear-gradient(to bottom,var(--ink) 0 5px,transparent 5px 21px);opacity:.7}
+.qhead{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin-bottom:12px}
+.qnum{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:2.6rem;line-height:1;color:var(--print);font-variant-numeric:tabular-nums}
+.qof{color:var(--ink-soft);font-size:.95rem}
+.qtag{margin-left:auto;font-size:.8rem;color:var(--ink-soft);border:1px solid var(--print-soft);border-radius:999px;padding:2px 10px}
+.qtext{font-family:var(--display);font-weight:650;font-size:clamp(1.18rem,2.4vw,1.4rem);line-height:1.38;margin:0 0 20px;max-width:62ch}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:38px 1fr;align-items:center;gap:14px;width:100%;padding:11px 14px 11px 10px;border-radius:12px;border:1.5px solid transparent;transition:background-color .15s,border-color .15s,opacity .2s}
+.opt:not([aria-disabled="true"]):hover{border-color:var(--print-soft);background:var(--print-tint)}
+.opt[aria-disabled="true"]{cursor:default}
+.bubble{position:relative;width:36px;height:36px;border-radius:50%;border:2px solid var(--print);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--print);isolation:isolate}
+.bubble::after{content:"";position:absolute;inset:-2px;border-radius:50%;background:var(--fill);transform:scale(0);transition:transform .25s cubic-bezier(.3,1.5,.6,1);z-index:-1}
+.opt:not([aria-disabled="true"]):hover .bubble::after{transform:scale(.35);opacity:.25}
+.is-correct{background:var(--ok-tint);border-color:var(--ok)}
+.is-correct .bubble{border-color:var(--ok);color:var(--on-strong)}
+.is-correct .bubble::after{background:var(--ok);transform:scale(1)}
+.is-wrong{background:var(--bad-tint);border-color:var(--bad)}
+.is-wrong .bubble{border-color:var(--bad);color:var(--on-strong)}
+.is-wrong .bubble::after{background:var(--bad);transform:scale(1)}
+.is-dim{opacity:.5}
+.otext{line-height:1.45}
+.olabel{display:block;font-size:.8rem;font-weight:700;margin-top:2px}
+.is-correct .olabel{color:var(--ok)}
+.is-wrong .olabel{color:var(--bad)}
+.explain{margin-top:20px;padding:16px 18px;border-radius:12px;border-left:4px solid var(--ok);background:var(--ok-tint);animation:reveal .3s ease-out}
+.explain.bad{border-left-color:var(--bad);background:var(--bad-tint)}
+.verdict{font-family:var(--display);font-weight:800;font-size:1.05rem;margin-bottom:6px}
+.explain.ok .verdict{color:var(--ok)}
+.explain.bad .verdict{color:var(--bad)}
+.ex{line-height:1.62;max-width:68ch}
+.ex-label{font-weight:700}
+@keyframes reveal{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.controls{display:flex;gap:10px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.controls .spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 18px;border-radius:999px;border:1.5px solid var(--print);font-weight:700;font-size:.95rem;min-height:42px}
+.btn:hover{background:var(--print-tint)}
+.btn.primary{background:var(--fill);color:var(--on-fill);border-color:var(--fill)}
+.btn.primary:hover{opacity:.9;background:var(--fill)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.quiet{border-color:transparent;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;padding-inline:8px}
+.btn.danger{border-color:var(--bad);color:var(--bad)}
+.btn.danger[data-armed]{background:var(--bad);color:var(--on-strong)}
+.hint{font-size:.84rem;color:var(--ink-soft);margin-top:14px}
+kbd{font-family:var(--body);font-size:.78rem;border:1px solid var(--print-soft);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--sheet)}
+.empty{background:var(--sheet);border:1.5px dashed var(--print-soft);border-radius:14px;padding:28px}
+.empty h2{font-family:var(--display);font-weight:800;margin:0 0 6px;font-size:1.25rem}
+.empty p{color:var(--ink-soft);margin-bottom:16px;max-width:56ch}
+
+/* marksheet */
+.board h1{font-family:var(--display);font-stretch:120%;font-weight:900;font-size:clamp(2.1rem,5vw,3.1rem);margin:0;letter-spacing:-.02em;line-height:1}
+.lede{color:var(--ink-soft);max-width:62ch;margin-top:10px}
+.total{display:grid;grid-template-columns:auto 1fr;gap:10px 30px;align-items:center;padding:22px 26px;border:1.5px solid var(--print);border-radius:14px;background:var(--sheet);margin:24px 0}
+.total-marks{font-family:var(--display);font-stretch:125%;font-weight:900;font-size:clamp(3rem,9vw,4.4rem);line-height:.9;color:var(--print);font-variant-numeric:tabular-nums}
+.total-marks small{font-size:.36em;color:var(--ink-soft);font-weight:700;font-stretch:100%}
+.total-cap{display:block;font-family:var(--body);font-size:.85rem;color:var(--ink-soft);font-weight:400;margin-top:8px;letter-spacing:0}
+.total-facts{display:grid;gap:4px}
+.total-facts b{font-variant-numeric:tabular-nums}
+.total-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.weak{margin:0 0 24px;padding:18px 20px;border-radius:14px;background:var(--bad-tint);border-left:4px solid var(--bad)}
+.weak h2{font-family:var(--display);font-weight:800;font-size:1.1rem;margin:0 0 8px}
+.weak ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.weak button{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.weak span{color:var(--ink-soft)}
+.marks-wrap{overflow-x:auto;border:1.5px solid var(--print-soft);border-radius:14px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:.93rem}
+th{text-align:left;font-weight:700;color:var(--ink-soft);font-size:.82rem;padding:12px 12px;border-bottom:1.5px solid var(--print);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--print-tint);vertical-align:middle}
+tr.topic td{border-top:1.5px solid var(--print-soft)}
+tr.topic:first-child td{border-top:0}
+tr.topic .tname{font-family:var(--display);font-weight:800;font-size:1rem}
+tr.subrow .tname{padding-left:16px;color:var(--ink-soft)}
+.tname{text-decoration:none}
+.tname:hover{text-decoration:underline;text-underline-offset:3px;color:var(--ink)}
+.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+th.num{text-align:right}
+.bar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--print-tint);min-width:110px}
+.bar i{display:block;height:100%}
+.bar .b-ok{background:var(--ok)}
+.bar .b-bad{background:var(--bad)}
+.mini{font-size:.82rem;font-weight:700;color:var(--print);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.mini.danger{color:var(--bad)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.84rem;color:var(--ink-soft);margin:12px 2px 0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.foot{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;color:var(--ink-soft);font-size:.88rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width: 880px){
+  .layout{grid-template-columns:1fr}
+  .menu-btn{display:inline-flex}
+  .side{position:fixed;top:0;bottom:0;left:0;z-index:70;width:min(86vw,330px);max-height:none;background:var(--paper);border-right:1.5px solid var(--print);transform:translateX(-102%);transition:transform .25s ease;padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+  body.drawer .side{transform:none}
+  body.drawer .scrim{display:block;position:fixed;inset:0;z-index:65;background:rgba(10,20,22,.45)}
+  .hide-sm{display:none}
+}
+@media (max-width: 560px){
+  body{font-size:16px}
+  .top{padding:0 14px;gap:10px}
+  .brand{font-size:.95rem}
+  .top-stats{font-size:.82rem}
+  .sheet{padding:20px 16px 20px 36px}
+  .sheet::before{left:11px;width:8px}
+  .qnum{font-size:2.1rem}
+  .qtag{margin-left:0}
+  .opt{gap:10px;padding:10px 10px 10px 6px}
+  .total{grid-template-columns:1fr;padding:20px}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="menu-btn" data-act="menu" aria-expanded="false" aria-controls="side">Topics</button>
+  <button class="brand" data-act="board"><span class="brand-mark" aria-hidden="true"></span>GenAI MCQ sheet</button>
+  <p class="top-stats" id="topStats" aria-live="polite"></p>
+</header>
+<div class="layout">
+  <aside class="side" id="side"><nav id="nav" aria-label="Topics and subtopics"></nav></aside>
+  <div class="scrim" data-act="menu-close"></div>
+  <main id="main" tabindex="-1"></main>
+</div>
+<script>
+// Each row: [subtopicIndex, question, correctAnswer, [wrong1, wrong2, wrong3], explanation]
+// Options are shuffled at display time, so the correct answer is always written first here.
+const TOPICS = [
+{
+  id:"ml", name:"AI & ML fundamentals",
+  subs:["Core concepts","Learning types","Model training","Evaluation metrics"],
+  qs:[
+  [0,"How are AI, Machine Learning and Deep Learning related?","Deep Learning is a subset of ML, and ML is a subset of AI",["AI is a subset of ML, and ML is a subset of Deep Learning","They are three completely independent fields","ML is a subset of Deep Learning, which is a subset of AI"],"Socho matryoshka dolls jaisa: AI sabse bada doll hai (machines ko smart banana), uske andar ML (data se seekhna), aur uske andar Deep Learning (multi-layer neural networks se seekhna). Har DL system ML hai, har ML system AI hai — ulta nahi."],
+  [0,"What best describes Generative AI?","AI that creates new content like text, images, code or audio by learning patterns from data",["AI that only sorts inputs into fixed, predefined categories","A rule-based system built from hand-written if-else logic","A search engine that returns stored answers word for word"],"GenAI ka kaam hai naya content banana — jaise ek cook jo hazaar recipes padhke apni nayi dish bana de. Classification models sirf label lagate hain; GenAI training data ke patterns se bilkul naya output generate karta hai."],
+  [0,"What is the key difference between a discriminative and a generative model?","Discriminative models learn P(y|x) to separate classes; generative models learn how the data itself is distributed, P(x) or P(x, y)",["Discriminative models need no training data; generative models do","Generative models work only with images, discriminative only with text","There is no difference — the two terms mean the same thing"],"Discriminative model sirf boundary seekhta hai — “ye cat hai ya dog?” Generative model poore data ka pattern seekhta hai, isliye wo naye samples bana sakta hai. Example: logistic regression discriminative hai, GPT generative."],
+  [0,"Which of these is a typical example of narrow AI?","A model that only recommends movies on a streaming app",["A system that matches human intelligence across every task","A robot with genuine human-like consciousness","An AI that can independently do any job a person can"],"Narrow (weak) AI ek specific kaam mein accha hota hai — recommendation, spam filter, chess. Jo AI har task mein insaan jitna capable ho use AGI (Artificial General Intelligence) kehte hain, jo abhi research ka goal hai."],
+  [1,"Supervised learning trains a model using…","Labelled data, where each input comes with the correct output",["Only unlabelled data with no answers attached","Rewards and penalties from an environment","No data at all — only hand-written rules"],"Supervised = teacher ke saath padhai. Har example ke saath sahi answer (label) diya hota hai, jaise emails ke saath “spam / not spam” tag. Model input se output ka mapping seekhta hai."],
+  [1,"Grouping customers into segments by their buying behaviour, with no labels given, is an example of…","Unsupervised learning (clustering)",["Supervised classification","Reinforcement learning","Regression"],"Jab labels nahi hote aur model khud patterns ya groups dhoondhta hai, wo unsupervised learning hai. K-Means clustering iska classic example hai — jaise kirana wala bina kisi ke bataye samajh jaaye ki kaun daily-milk customer hai aur kaun monthly-bulk wala."],
+  [1,"An agent learning to play a game through trial and error, guided by rewards, uses…","Reinforcement learning",["Supervised learning","Unsupervised clustering","Dimensionality reduction"],"Reinforcement Learning (RL) mein agent action leta hai, environment se reward ya penalty milti hai, aur wo dheere dheere best strategy (policy) seekhta hai — jaise bachcha cycle chalana seekhta hai, girke aur sambhalke."],
+  [1,"LLM pretraining on raw internet text is usually described as…","Self-supervised learning, because the labels (next words) come from the text itself",["Fully supervised learning with human-labelled answers for every sentence","Reinforcement learning from the very first step","Unsupervised clustering of documents"],"Text khud hi label deta hai: “Main chai ___” — agla word “peeta hoon” already data mein hai. Isliye kisi insaan ko label lagane ki zarurat nahi. Isse self-supervised learning kehte hain."],
+  [1,"Predicting the price of a flat in Pune from its size and location is a…","Regression problem",["Classification problem","Clustering problem","Reinforcement learning problem"],"Output ek continuous number hai (₹ price), isliye regression. Agar output category hota (jaise “cheap / premium”), tab classification hota."],
+  [2,"A model scores 99% on training data but only 60% on new data. This is called…","Overfitting",["Underfitting","Perfect generalisation","Data augmentation"],"Model ne training data ratta maar liya, concept nahi samjha — jaise student jo sirf pichle saal ke paper yaad kare aur naye questions pe fail ho jaaye. Ise overfitting kehte hain."],
+  [2,"Which technique helps reduce overfitting?","Adding regularisation such as an L2 penalty or dropout",["Training for many more epochs on the same data","Making the model much bigger with no other change","Removing the validation set"],"Regularisation model ko zyada complex hone se rokta hai, taaki wo noise ratta na maare. More data, dropout aur early stopping bhi help karte hain. Zyada epochs ya bada model overfitting aur badha sakta hai."],
+  [2,"A model that is too simple and performs poorly on both training and test data suffers from…","High bias (underfitting)",["High variance (overfitting)","Data leakage","Low bias and low variance"],"High bias = model ki assumptions bahut simple hain, pattern pakad hi nahi pa raha — jaise curved data pe seedhi line fit karna. Training pe bhi kharab, test pe bhi kharab."],
+  [2,"Why do we keep a separate validation set?","To tune hyperparameters and catch overfitting without touching the test set",["To add more training examples to the model","To make training run faster","To store the final model weights"],"Training set se seekhte hain, validation set se settings tune karte hain, aur test set final exam hai jo end mein ek baar dekhte hain. Test set ko tuning mein use kiya toh result over-optimistic ho jaata hai."],
+  [2,"What does gradient descent do?","Repeatedly updates parameters in the direction that reduces the loss",["Randomly guesses new weights until accuracy improves","Increases the loss to explore more solutions","Sorts the training data by difficulty"],"Socho aankh band karke pahaad se neeche utarna hai — har step pe dekhte ho ki dhalaan kis taraf neeche ja rahi hai aur wahi chalte ho. Gradient batata hai loss kis direction mein badhta hai; hum ulti direction mein step lete hain."],
+  [2,"What usually happens if the learning rate is set too high?","The loss jumps around or even blows up instead of steadily decreasing",["Training becomes extremely slow but very stable","The model automatically becomes smaller","Nothing — learning rate has no real effect"],"Learning rate = step ka size. Bahut bada step lo toh valley ke bottom ko overshoot kar jaate ho aur idhar-udhar uchhalte rehte ho. Bahut chhota lo toh training bahut slow."],
+  [2,"Which of these is a hyperparameter rather than a learned parameter?","Learning rate",["The weights of a neural network","The biases inside each layer","The values inside an embedding matrix"],"Parameters (weights, biases) model training ke dauraan khud seekhta hai. Hyperparameters (learning rate, batch size, epochs) hum training se pehle set karte hain — jaise oven ka temperature, jo cook decide karta hai, cake nahi."],
+  [3,"Precision is calculated as…","TP / (TP + FP)",["TP / (TP + FN)","(TP + TN) / total","FP / (FP + TN)"],"Precision = jitne cases ko model ne “positive” bola, unme se kitne sach mein positive the. TP = true positive, FP = false positive (galti se positive bola). TP / (TP + FN) recall hota hai."],
+  [3,"For cancer screening, which metric matters most if missing a real patient is very costly?","Recall",["Precision","Accuracy","Training loss"],"Recall = asli positive cases mein se kitne pakde. Cancer mein ek bhi patient miss karna (false negative) bahut mehenga hai, isliye recall high chahiye — chahe kuch false alarms aa jaayein."],
+  [3,"The F1 score is…","The harmonic mean of precision and recall",["The average of accuracy and loss","Precision multiplied by recall","The number of correct predictions"],"F1 = 2 × P × R / (P + R). Harmonic mean dono mein se chhoti value ki taraf jhukta hai, isliye F1 tabhi high hoga jab precision aur recall dono acche hon."],
+  [3,"Why can accuracy be misleading on an imbalanced dataset?","A model can predict only the majority class and still get very high accuracy",["Accuracy cannot be calculated when classes are imbalanced","Accuracy always shows lower values than precision","Imbalanced data makes accuracy exactly 50%"],"Agar 99% transactions normal hain aur 1% fraud, toh “sab normal hai” bolne wala bekaar model bhi 99% accurate dikhega. Aise cases mein precision, recall, F1 ya AUC dekhte hain."]
+  ]
+},
+{
+  id:"dl", name:"Deep learning & generative models",
+  subs:["Neural network basics","Activation & loss","Training deep nets","Architectures","Generative models"],
+  qs:[
+  [0,"What does a single artificial neuron compute?","A weighted sum of its inputs plus a bias, passed through an activation function",["The average of all training labels","A random number between 0 and 1","An exact copy of its largest input"],"Neuron = har input ko uske weight se multiply karo, sab jodo, bias add karo, phir activation function se pass karo. Weights batate hain kaunsa input kitna important hai."],
+  [0,"Why do neural networks need non-linear activation functions?","Without them, stacked layers collapse into one linear function and can’t learn complex patterns",["To make the network run faster on CPUs","To reduce the number of parameters to zero","Because linear functions cannot be differentiated"],"Linear ke upar linear = phir bhi linear. 100 layers bina activation ke ek single layer jitni hi powerful hongi. Non-linearity (ReLU, GELU) se network curves aur complex patterns seekh pata hai."],
+  [0,"What is backpropagation?","Using the chain rule to work out how much each weight contributed to the loss, moving backwards layer by layer",["Running the model on test data after training","Copying weights from the last layer to the first","Removing layers that are not useful"],"Pehle forward pass se prediction aur loss nikalta hai. Phir backprop peeche ki taraf chain rule lagake har weight ka gradient (blame) nikalta hai, taaki gradient descent use update kar sake."],
+  [0,"One epoch means…","One complete pass of the model over the entire training dataset",["One single weight update","Processing exactly one training example","The time taken to load the data"],"Socho poori textbook ek baar padh li = 1 epoch. Usually model ko kai epochs chahiye hote hain, aur har epoch mein kai batches aur kai weight updates hote hain."],
+  [0,"Batch size refers to…","The number of training examples processed before one weight update",["The total number of layers in the network","The number of epochs in training","The size of the final saved model file"],"Saara data ek saath GPU mein nahi aata, toh chhote batches mein bhejte hain. Batch size 32 = 32 examples dekho, average gradient nikalo, phir ek update karo."],
+  [1,"The ReLU activation function outputs…","max(0, x)",["1 / (1 + e^−x)","x squared","Always exactly 1"],"ReLU (Rectified Linear Unit): negative input → 0, positive input → as it is. Simple aur fast hai, aur sigmoid ki tulna mein vanishing gradient problem kam karta hai. 1 / (1 + e^−x) sigmoid hai."],
+  [1,"What does the softmax function do?","Turns a vector of raw scores into probabilities that add up to 1",["Removes all negative values and keeps the rest","Picks a random class from the output","Sorts the outputs from smallest to largest"],"Model ke raw scores (logits) ko softmax probabilities mein badalta hai — jaise “cat 0.7, dog 0.2, cow 0.1”. LLMs bhi har next token ki probability softmax se hi nikalte hain."],
+  [1,"Which loss function is standard for classification tasks, including next-token prediction in LLMs?","Cross-entropy loss",["Mean squared error","Hinge loss only","The absolute value of the weights"],"Cross-entropy measure karta hai ki model ne sahi class ko kitni probability di. Sahi token ko high probability = low loss. LLM training mein yahi loss minimise hota hai. MSE mostly regression ke liye hota hai."],
+  [2,"What is the vanishing gradient problem?","Gradients become tiny in the early layers, so those layers barely learn",["The model forgets its training data after saving","The learning rate becomes zero automatically","Gradients become too large and overflow"],"Deep networks mein chain rule se bahut saare chhote numbers multiply hote hain (khaaskar sigmoid/tanh ke saath), toh shuru ki layers tak gradient lagbhag zero pahunchta hai. Ulta problem (bahut bade gradients) ko exploding gradient kehte hain."],
+  [2,"How do residual (skip) connections help deep networks?","They give gradients a shortcut path, making very deep networks trainable",["They delete unnecessary neurons","They replace the need for an optimiser","They convert the network into a decision tree"],"Residual connection: output = layer(x) + x. Ye ek express highway jaisa hai jahan gradient bina ruke peeche tak pahunch jaata hai. ResNet aur har Transformer block yahi trick use karta hai."],
+  [2,"What does dropout do during training?","Randomly switches off some neurons so the network doesn’t rely too much on any one of them",["Permanently deletes the worst-performing layer","Drops training examples that have errors","Stops training when the loss increases"],"Har step pe kuch neurons randomly band, toh baaki neurons ko bhi seekhna padta hai — team ek hi star player pe depend nahi karti. Ye overfitting kam karta hai. Inference ke time dropout off hota hai."],
+  [2,"The Adam optimiser is popular because it…","Combines momentum with an adaptive learning rate for each parameter",["Needs no gradients at all","Always finds the global minimum","Works only for very small models"],"Adam do ideas jodta hai: momentum (pichli direction yaad rakhna) aur har parameter ke liye alag adaptive step size. Isliye bina zyada tuning ke kaafi accha kaam karta hai. AdamW iska common variant hai."],
+  [3,"Convolutional Neural Networks (CNNs) are mainly known for…","Detecting spatial patterns in images using sliding filters",["Generating long text one word at a time","Storing data in a vector database","Ranking search results with keywords"],"CNN chhote filters image pe slide karta hai — pehli layers edges pakadti hain, aage ki layers shapes aur objects. Image classification aur detection ke liye classic choice."],
+  [3,"What is a major limitation of RNNs compared with Transformers?","They process tokens one by one, so they’re slow to train and struggle with long-range dependencies",["They can’t process text at all","They have no learnable parameters","They only work on images"],"RNN ek-ek word sequence mein padhta hai, toh parallel training mushkil hai aur lambe sentences mein shuru ki baat bhool jaata hai. Transformer saare tokens ek saath dekhta hai."],
+  [3,"In an LSTM, what is the job of the gates?","Deciding what information to keep, forget or output at each step",["Converting text into images","Splitting data into training and test sets","Choosing the learning rate automatically"],"LSTM (Long Short-Term Memory) mein forget, input aur output gates hote hain — jaise ek diary jisme tum decide karte ho kya rakhna hai aur kya mitaana hai. Isse lambi info better yaad rehti hai."],
+  [4,"In a GAN, what are the two competing networks?","A generator that creates fake samples and a discriminator that tries to spot the fakes",["An encoder and a database","A retriever and a re-ranker","A teacher model and a student model"],"GAN (Generative Adversarial Network) = nakli note banane wala (generator) vs police (discriminator). Dono ek dusre ko beat karne ki koshish mein better hote jaate hain, aur generator realistic outputs banane lagta hai."],
+  [4,"What is mode collapse in GANs?","The generator keeps producing a few similar outputs instead of diverse ones",["The discriminator stops working after training","The model forgets the training data","The images become too high resolution"],"Generator ko ek-do aise outputs mil jaate hain jo discriminator ko bewakoof bana dete hain, toh wo wahi baar baar banata hai — variety khatam. GAN training ki famous problem."],
+  [4,"How do diffusion models generate images?","They learn to remove noise step by step, turning random noise into a clear image",["They copy and paste parts of training images","They search the internet for a matching image","They draw images pixel by pixel from left to right only"],"Training mein images mein dheere dheere noise milaya jaata hai, aur model ulta seekhta hai — noise hatana. Generation ke time pure noise se shuru karke step-by-step clean image banti hai. Stable Diffusion isi idea pe based hai."],
+  [4,"What makes a Variational Autoencoder (VAE) generative?","It learns a smooth, probabilistic latent space that you can sample from to create new data",["It memorises every training image exactly","It uses a discriminator network","It only compresses data and can never create anything new"],"Normal autoencoder data ko compress (encode) aur wapas bana (decode) karta hai. VAE latent space ko ek smooth distribution bana deta hai, toh wahan se naya point sample karke naya output bana sakte ho. Latent space = data ka compressed “essence”."],
+  [4,"How does a text-to-image model like Stable Diffusion follow your prompt?","The text is turned into embeddings that condition (guide) the denoising process",["It finds an image whose file name matches the prompt","It ignores the text and generates randomly","It converts the text into pixels letter by letter"],"Prompt ko ek text encoder (jaise CLIP) embeddings mein badalta hai, aur ye embeddings har denoising step ko guide karti hain ki image kis taraf jaaye. Stable Diffusion ye kaam compressed latent space mein karta hai, isliye fast hai."]
+  ]
+},
+{
+  id:"nlp", name:"NLP, tokens & embeddings",
+  subs:["Text processing","Tokenization","Embeddings"],
+  qs:[
+  [1,"In LLMs, a token is…","A chunk of text — a word, part of a word or a character — that the model processes as one unit",["Always exactly one full English word","A password used to access the API","One complete sentence"],"Model text ko tokens mein todta hai. “unbelievable” shayad “un”, “believ”, “able” ban jaaye. Pricing, context window aur speed sab tokens mein measure hote hain."],
+  [1,"As a rough rule of thumb for English text, one token is about…","4 characters, or roughly three-quarters of a word",["One full paragraph","Exactly 10 words","One byte of storage"],"Common estimate: 1 token ≈ 4 characters ≈ 0.75 words, yaani 100 tokens ≈ 75 words. Hindi jaisi languages mein aksar same content ke liye zyada tokens lagte hain."],
+  [1,"How does Byte-Pair Encoding (BPE) build its vocabulary?","It starts from characters and repeatedly merges the most frequent adjacent pairs",["It uses a fixed dictionary of English words only","It assigns random IDs to every possible sentence","It splits text only at spaces"],"BPE: shuru mein har character alag, phir sabse common pair (jaise “t” + “h” → “th”) merge, phir agla, jab tak vocabulary ka size poora na ho. GPT models BPE-style tokenizers use karte hain."],
+  [1,"Why do modern LLMs use subword tokenization?","It handles rare or new words by splitting them into known pieces while keeping the vocabulary a manageable size",["It makes every word exactly one token","It removes the need for embeddings","It translates text into English first"],"Har possible word ki vocabulary banana impossible hai, aur sirf characters use karna bahut lambi sequences banata hai. Subword beech ka rasta hai — naya word bhi known tukdon se ban jaata hai."],
+  [1,"Which tokenization method is used by BERT?","WordPiece",["Run-length encoding","Huffman coding","JPEG compression"],"BERT WordPiece use karta hai — word ke beech ke subwords ko “##” se mark karta hai, jaise “playing” → “play”, “##ing”. GPT models BPE use karte hain, aur kai models SentencePiece."],
+  [1,"Why do LLMs sometimes miscount the letters in a word like “strawberry”?","They see tokens rather than individual characters, so spelling-level detail is hidden",["They are not trained on any English words","Their context window is too small for one word","They deliberately give wrong answers"],"Model ke liye “strawberry” shayad 2–3 tokens hain, letters nahi. Isliye letter count jaise kaam mein galti hoti hai. Exact counting ke liye code ya tool use karna better hota hai."],
+  [0,"What is the difference between stemming and lemmatization?","Stemming crudely chops word endings; lemmatization returns the proper dictionary base form",["They are exactly the same process","Lemmatization only works on numbers","Stemming translates words into another language"],"Stemming: “studies” → “studi” (tukda kaata, chahe word bane na bane). Lemmatization: “studies” → “study”, “better” → “good” (grammar samajh ke sahi root). Lemmatization slow par accurate hai."],
+  [0,"In classical NLP, what are stop words?","Very common words like “the”, “is” and “and” that are often removed because they carry little meaning",["Words that end a sentence","Offensive words blocked by filters","Words the model has never seen"],"Stop words har jagah aate hain, toh keyword-based tasks mein unhe hata dete the. LLMs ke time mein usually nahi hatate, kyunki “not” jaise words poora meaning badal dete hain."],
+  [0,"Named Entity Recognition (NER) is the task of…","Finding and labelling names of people, organisations, places, dates and so on in text",["Giving a new name to every document","Detecting the language of a text","Counting the words in a sentence"],"“Sundar Pichai joined Google in 2004” → Person: Sundar Pichai, Org: Google, Date: 2004. Pharma documents se drug names aur company names nikalna bhi NER hai."],
+  [0,"Sentiment analysis means…","Classifying whether a text expresses a positive, negative or neutral opinion",["Translating text into emojis","Counting the number of sentences","Fixing grammar mistakes"],"Product reviews, tweets, feedback forms — “khaana mast tha” positive, “delivery late thi” negative. Ye ek classification task hai."],
+  [0,"What is the Bag-of-Words model?","Representing text by word counts, ignoring word order",["A neural network that writes stories","A list of all stop words","A way to store images as text"],"Text ko ek thaila samjho jisme words daal diye — sirf count matter karta hai, order nahi. Toh “dog bites man” aur “man bites dog” same dikhte hain. Simple hai, par order ka meaning kho jaata hai."],
+  [0,"TF-IDF gives a high weight to a word that…","Appears often in one document but rarely across the whole collection",["Appears in every single document","Is the longest word in the document","Appears only in the title"],"TF (term frequency) = document mein kitni baar aaya. IDF (inverse document frequency) = poore corpus mein kitna rare hai. “the” har jagah hai → low weight. “oncology” sirf kuch docs mein → high weight."],
+  [0,"What does perplexity measure for a language model?","How well the model predicts text — lower perplexity means better prediction",["How confusing the model’s answers are to humans","The number of parameters in the model","The time taken to generate one token"],"Perplexity = model next word ke baare mein kitna “confused” hai. Low perplexity = model ko text predictable laga = accha language model. Ye cross-entropy loss se directly related hai."],
+  [0,"What does an n-gram refer to?","A sequence of n consecutive words or characters, like a bigram (2 words)",["A neural network with n layers","A grammar rule with n exceptions","n copies of the same document"],"“New Delhi railway” mein bigrams: “New Delhi” aur “Delhi railway”. Purane language models aur BLEU jaise metrics n-grams pe hi chalte hain."],
+  [2,"What is an embedding?","A list of numbers (a vector) that captures meaning, so similar items end up close together",["A compressed ZIP file of the text","An image inserted into a document","A unique ID number for each word"],"Embedding = text ka GPS coordinate. “dog” aur “puppy” paas paas, “dog” aur “invoice” door door. Semantic search, RAG aur clustering sab isi pe chalte hain."],
+  [2,"Which classic example shows that word embeddings capture relationships?","king − man + woman ≈ queen",["cat + dog = 2 animals","apple × 2 = apples","hello − h = ello"],"Word2Vec ne dikhaya ki vectors pe maths karne se meaningful relationships milte hain — gender, capital-country, waghera. Ye prove karta hai ki embeddings meaning ko numbers mein capture karti hain."],
+  [2,"Cosine similarity measures…","The angle between two vectors — 1 means pointing the same way, 0 means unrelated",["The exact distance in kilometres between two words","How many letters two words share","The length of the longest vector"],"Cosine similarity direction compare karti hai, length nahi. Embeddings compare karne ka sabse common tarika yahi hai. Value 1 ke paas = bahut similar meaning."],
+  [2,"How do contextual embeddings (like BERT’s) differ from static ones (like Word2Vec)?","The same word gets a different vector depending on its sentence",["Contextual embeddings are always shorter","Static embeddings change every time you run them","Contextual embeddings ignore the surrounding words"],"Word2Vec mein “bank” ka ek hi vector — chahe river bank ho ya SBI bank. BERT surrounding words dekh ke alag vector deta hai. Isliye contextual embeddings meaning better pakadti hain."],
+  [2,"When people say an embedding model has 768 or 1,536 dimensions, they mean…","Each piece of text is turned into a vector with that many numbers",["The model was trained on that many documents","The model supports that many languages","That is the maximum number of words per input"],"Dimension = vector ki length. Zyada dimensions = zyada detail capture ho sakti hai, par storage aur search ka cost bhi badhta hai."],
+  [2,"Which task is a common use of sentence embeddings?","Semantic search — finding text with similar meaning even when the words differ",["Compiling Python code","Compressing videos","Encrypting passwords"],"“laptop garam ho raha hai” search karo aur “notebook overheating issue” wala document mil jaaye — words alag, meaning same. Ye embeddings ka kamaal hai; keyword search ise miss kar deta."]
+  ]
+},
+{
+  id:"tf", name:"Transformers & attention",
+  subs:["Attention mechanism","Transformer architecture","Model families"],
+  qs:[
+  [1,"Which paper introduced the Transformer architecture?","“Attention Is All You Need” (2017)",["“ImageNet Classification with Deep CNNs” (2012)","“Playing Atari with Deep Reinforcement Learning” (2013)","“Generative Adversarial Nets” (2014)"],"2017 mein Google ke researchers (Vaswani et al.) ka paper. Isne RNN hata ke sirf attention pe based architecture diya, jo aaj ke saare LLMs ki neev hai."],
+  [0,"What does self-attention let each token do?","Look at every other token in the sequence and decide how much each one matters to its meaning",["Ignore all other tokens and look only at itself","Look only at the very next token","Delete unimportant tokens from the input"],"“The animal didn’t cross the road because it was tired” — “it” kisko refer karta hai? Self-attention “it” ko “animal” pe zyada dhyaan dene deta hai. Har token baaki sab se context leta hai."],
+  [0,"In attention, what are Query, Key and Value?","Query is what a token is looking for, Key is what each token offers, Value is the information actually passed on",["Three different training datasets","Three separate models trained in sequence","Password, username and token for the API"],"Library analogy: Query = tumhara search sawaal, Key = har kitaab ka label, Value = kitaab ka content. Query-Key match se score aata hai, aur us hisaab se Values mix hoti hain."],
+  [0,"What is the formula for scaled dot-product attention?","softmax(QKᵀ / √dₖ) · V",["Q + K + V","softmax(V) · Q · K","(Q × K) − V"],"Pehle Q aur K ka dot product (similarity), phir √dₖ se divide (scaling), softmax se weights, aur un weights se V ka weighted sum. Interview mein ye formula zaroor yaad rakhna."],
+  [0,"Why are attention scores divided by √dₖ?","To stop large dot products from pushing softmax into regions with tiny gradients",["To make the model use less memory","To convert the scores into integers","To randomly shuffle the tokens"],"Dimensions badi hon toh dot products bahut bade ho jaate hain, softmax ek token pe almost 1 aur baaki pe 0 de deta hai, aur gradients chhote ho jaate hain. √dₖ scaling se values balanced rehti hain."],
+  [0,"What is the benefit of multi-head attention?","Several attention heads run in parallel, each able to focus on a different kind of relationship",["It lets the model use multiple GPUs automatically","It removes the need for positional information","It makes the model read text from right to left"],"Ek head grammar pe dhyaan de sakta hai, dusra coreference (“it” kisko refer kar raha), teesra paas ke words pe. Sab heads ke outputs jod ke richer understanding milti hai."],
+  [0,"In decoder models like GPT, what does causal (masked) self-attention ensure?","Each token can attend only to earlier tokens, never to future ones",["Each token attends only to the last token","Tokens attend to random positions","The model sees the full answer before generating it"],"Generation ke time future words available nahi hote, toh training mein bhi future ko mask (chhupa) kar dete hain. Warna model cheating seekh lega — answer peek karke."],
+  [0,"How does the compute cost of standard self-attention grow with sequence length n?","Quadratically — O(n²)",["Linearly — O(n)","It stays constant","Logarithmically — O(log n)"],"Har token baaki har token se compare hota hai, toh n × n scores. Context 2x karo toh attention ka cost ~4x. Isliye long context mehenga hai aur FlashAttention jaise optimisations aaye."],
+  [0,"What is cross-attention?","Attention where the queries come from one sequence and the keys and values from another, like a decoder attending to the encoder’s output",["Attention between two different GPUs","Attention that crosses out wrong tokens","Attention used only in image models"],"Translation mein Hindi output banate waqt decoder English input (encoder ka output) ko dekhta hai — ye cross-attention hai. Text-to-image models mein bhi image, prompt pe cross-attend karti hai."],
+  [1,"Why do Transformers need positional encoding?","Attention by itself has no sense of word order, so position information must be added",["To count the total number of tokens","To encrypt the input text","To decide which GPU each token goes to"],"Attention ke liye “dog bites man” aur “man bites dog” same tokens ka set hain. Positional encoding har token ko batata hai ki wo kaunse number pe khada hai."],
+  [1,"RoPE (Rotary Positional Embedding), used in models like LLaMA, works by…","Rotating query and key vectors by an angle that depends on each token’s position",["Adding a random number to each token","Sorting tokens alphabetically","Repeating each token twice"],"RoPE Q aur K vectors ko position ke hisaab se rotate karta hai, toh attention score mein do tokens ke beech ka relative distance naturally aa jaata hai. LLaMA aur Mistral jaise models ise use karte hain."],
+  [1,"What is a key advantage of Transformers over RNNs?","All tokens are processed in parallel during training, and long-range links are easier to learn",["They need no training data","They have fewer parameters than any RNN","They only work with numbers, not text"],"RNN line mein khade logon jaise ek-ek karke kaam karta hai; Transformer sab ko ek saath. GPUs parallel kaam mein maahir hain, isliye Transformers bahut bade data pe train ho paaye."],
+  [1,"Inside each Transformer block, after attention, what does the feed-forward network do?","Processes each token’s representation independently through a small MLP",["Sends the tokens to an external database","Generates the final answer directly","Shuffles the tokens into a new order"],"Attention tokens ke beech info mix karta hai; feed-forward network (MLP) har token ko alag se aur process karta hai. Model ke zyaadatar parameters aksar inhi layers mein hote hain. Saath mein residual connections aur layer norm bhi hote hain."],
+  [1,"What is the KV cache used for during LLM inference?","Storing the keys and values of previous tokens so they aren’t recomputed for every new token",["Caching the user’s login details","Saving the final answer to disk","Storing the training dataset"],"Har naya token banate waqt pichle tokens ke K aur V dobara compute karna waste hai. KV cache unhe memory mein rakhta hai — generation fast, par long context mein GPU memory zyada khaata hai."],
+  [1,"In a Mixture-of-Experts (MoE) model, what happens to each token?","A router sends it to only a few expert sub-networks, so only part of the model runs per token",["It is processed by every expert one after another","It is sent to a human expert for review","It is split into characters, each going to a different expert"],"MoE mein bahut saare experts hote hain par har token ke liye router sirf 1–2 chunta hai. Total parameters bade, par per-token compute kam. Mixtral jaisa model isi tarah ka hai."],
+  [2,"BERT is an example of which kind of Transformer?","Encoder-only",["Decoder-only","A GAN","A recurrent network"],"BERT sirf encoder use karta hai aur text ko dono taraf se (bidirectional) dekhta hai. Isliye understanding tasks — classification, NER, embeddings — mein accha hai, par lamba text generate karne ke liye nahi bana."],
+  [2,"The GPT family of models is…","Decoder-only",["Encoder-only","Encoder-decoder","A convolutional network"],"GPT = Generative Pre-trained Transformer. Sirf decoder stack, causal attention ke saath, next token predict karta hai. Aaj ke zyaadatar chat LLMs decoder-only hain."],
+  [2,"Which model is a well-known encoder-decoder Transformer?","T5",["GPT-2","BERT","Word2Vec"],"T5 har task ko text-to-text banata hai: input text encoder mein, output text decoder se. BART bhi encoder-decoder hai. Translation aur summarisation ke liye natural fit."],
+  [2,"What is BERT’s main pretraining objective?","Masked language modelling — predicting words that were hidden in the sentence",["Predicting only the next word from left to right","Generating images from captions","Ranking web pages"],"Sentence ke ~15% words [MASK] kar diye, aur model dono taraf ka context dekh ke guess karta hai — fill-in-the-blanks jaisa. Original BERT mein Next Sentence Prediction bhi tha."],
+  [2,"What is the pretraining objective of GPT-style models?","Predicting the next token given all the previous tokens",["Filling in randomly masked words using both sides","Classifying images into categories","Translating between two fixed languages"],"Causal language modelling: “Mera naam Rahul ___” → next token predict karo. Simple objective, par huge data pe isse grammar, facts aur reasoning patterns sab seekhne ko milte hain."]
+  ]
+},
+{
+  id:"llm", name:"LLM fundamentals",
+  subs:["How LLMs work","Training pipeline","Decoding settings","Limitations"],
+  qs:[
+  [0,"At its core, what does an LLM do when generating text?","Predicts a likely next token based on all the tokens so far, one token at a time",["Looks up the full answer in a stored database","Runs a hand-written grammar program","Copies a matching sentence from the internet"],"LLM ek bahut smart autocomplete hai. Har step pe agla token predict karta hai, use input mein jodta hai, phir agla — jab tak answer poora na ho."],
+  [0,"What is an LLM’s context window?","The maximum number of tokens it can consider at once, including your input and its output",["The size of the screen used to chat","The number of users who can chat at the same time","The time limit for each request"],"Context window = model ki working memory, jaise desk ka size. 128K context = ~128,000 tokens ek saath dekh sakta hai. Usse zyada ho toh purana content kaatna padta hai."],
+  [0,"A “7B” model has…","About 7 billion learned parameters (weights)",["7 billion training documents","7 billion users","A context window of 7 billion tokens"],"B = billion parameters. Zyada parameters = usually zyada capability, par zyada memory aur compute bhi. FP16 mein 7B model ko roughly 14 GB memory chahiye."],
+  [0,"What are logits in an LLM?","The raw, unnormalised scores for every token in the vocabulary, before softmax",["The login credentials for the model API","The log files written during training","The final cleaned-up answer"],"Model har possible next token ko ek score deta hai — ye logits hain. Softmax inhe probabilities mein badalta hai, phir decoding strategy token chunti hai."],
+  [0,"What do scaling laws for LLMs describe?","How model loss falls predictably as parameters, data and compute increase",["The legal rules for selling AI models","How to scale images before training","The maximum size an LLM can ever reach"],"Research (Kaplan et al., aur baad mein Chinchilla) ne dikhaya ki model size, data aur compute badhane pe performance predictable tarike se improve hoti hai. Chinchilla ne bataya ki data bhi model size ke saath badhana zaroori hai."],
+  [1,"What happens during LLM pretraining?","The model learns language and world knowledge by predicting next tokens on a massive text corpus",["The model is taught to follow instructions using a few hundred examples","Humans rank the model’s answers","The model is compressed for mobile phones"],"Pretraining = school ki saari padhai. Trillions of tokens, hazaaron GPUs, mahino ka kaam. Result ek base model hota hai jo text continue karna jaanta hai, par chat assistant jaisa behave nahi karta."],
+  [1,"What is Supervised Fine-Tuning (SFT), also called instruction tuning?","Training a pretrained model on instruction–response pairs so it learns to follow instructions",["Training a model from scratch with random weights","Removing layers to make the model smaller","Letting the model chat with itself without any data"],"Base model ko examples dikhate hain: “Instruction: email likho → Response: …”. Isse wo helpful assistant ki tarah jawab dena seekhta hai."],
+  [1,"What are the main steps of RLHF?","Collect human preference rankings, train a reward model on them, then optimise the LLM with reinforcement learning",["Pretrain, quantise, then deploy","Tokenize, embed, then cluster","Collect web data, remove duplicates, then compress it"],"RLHF (Reinforcement Learning from Human Feedback): humans do answers mein se behtar chunte hain → reward model seekhta hai “kaunsa answer accha hai” → LLM ko PPO jaise RL algorithm se optimise karte hain taaki high-reward answers de."],
+  [1,"How does DPO (Direct Preference Optimisation) differ from classic RLHF?","It learns directly from preference pairs, without a separate reward model or an RL loop",["It uses no human preference data at all","It only works on image models","It adds more pretraining data"],"DPO wahi preference data (chosen vs rejected answer) use karta hai par seedha ek loss function se model update karta hai. Simple, stable aur sasta — isliye bahut popular hua."],
+  [1,"What is the difference between a base model and an instruct (chat) model?","A base model just continues text; an instruct model has been tuned to follow instructions and hold conversations",["Base models are always larger than instruct models","Instruct models were never pretrained","There is no difference between them"],"Base model ko “India ki capital kya hai?” do toh wo shayad aur quiz questions likhne lage. Instruct model seedha answer dega. Instruct = base + SFT + preference tuning."],
+  [2,"What does the temperature setting control?","How random or focused the model’s word choices are",["How fast the GPU runs","The maximum length of the prompt","The language of the answer"],"Low temperature (0–0.3) = safe, predictable, factual. High (0.8–1.2) = creative aur varied, par galti ka risk zyada. Temperature probability distribution ko sharp ya flat karta hai."],
+  [2,"For data extraction or factual Q&A, which temperature is usually best?","Low, close to 0",["Very high, around 2","It doesn’t matter at all","A negative temperature"],"Extraction mein consistency chahiye — har baar same answer. Temperature 0 ke paas model sabse likely token chunta hai. Creative writing ke liye higher rakhte hain."],
+  [2,"Top-p (nucleus) sampling picks the next token from…","The smallest set of tokens whose probabilities add up to at least p",["Exactly the top 10 tokens every time","Any token in the vocabulary, with equal chance","Only tokens that appeared in the prompt"],"Top-p = 0.9 → probabilities ko bade se chhote sort karo, jab tak total 90% na ho jaaye, unhi tokens mein se chuno. Set ka size situation ke hisaab se badalta hai, top-k jaisa fixed nahi."],
+  [2,"Top-k sampling means…","Sampling the next token only from the k most likely candidates",["Generating k different answers in parallel","Using only the top k layers of the model","Keeping only the first k words of the prompt"],"Top-k = 40 → sirf 40 sabse likely tokens mein se chuno, baaki ajeeb options cut. Top-p ki tulna mein ye ek fixed count hai."],
+  [2,"Greedy decoding always…","Picks the single highest-probability token at each step",["Picks a random token","Picks the longest available token","Generates the answer backwards"],"Greedy = har step pe best wala. Fast aur deterministic, par kabhi kabhi repetitive ya boring text deta hai, kyunki second-best choice se overall behtar sentence ban sakta tha."],
+  [2,"What is a stop sequence?","A string that tells the model to stop generating as soon as it appears",["A list of banned words","The first token of every answer","A command that shuts down the server"],"Jaise “###” stop sequence set kiya, aur model jaise hi ye likhe, generation ruk jaata hai. Output ko clean aur controlled rakhne ke kaam aata hai."],
+  [2,"The max tokens (max output tokens) setting controls…","The upper limit on how long the generated response can be",["The size of the training dataset","The number of users allowed","The vocabulary size of the model"],"Max tokens ek ceiling hai — answer usse lamba nahi jaayega (beech mein kat bhi sakta hai). Cost control aur latency ke liye useful."],
+  [3,"What is an LLM hallucination?","A confident-sounding answer that is false or made up",["When the model refuses to answer","When the model replies in another language","When the server is down"],"Model fluent text banane ke liye trained hai, sach check karne ke liye nahi. Isliye kabhi fake citations ya galat facts bhi confidently bol deta hai. RAG, grounding aur verification se ise kam karte hain."],
+  [3,"What does a model’s knowledge cutoff mean?","It has no built-in knowledge of events after its training data ends",["It refuses to answer after a certain number of questions","It deletes old knowledge every month","It can only answer questions up to a certain length"],"Training data ek date tak ka hota hai. Uske baad ki news model ko nahi pata, jab tak tum search ya RAG se current info na do."],
+  [3,"Why can LLMs make mistakes on exact arithmetic like large multiplications?","They predict likely-looking tokens instead of actually executing calculations",["They have no numbers in their vocabulary","Maths is blocked by safety filters","Their context window cannot hold numbers"],"LLM calculator nahi, pattern predictor hai. Chhote sums yaad ho sakte hain, par bade calculations mein galti ho sakti hai. Solution: code interpreter ya calculator tool use karwao."]
+  ]
+},
+{
+  id:"prompt", name:"Prompt engineering",
+  subs:["Prompting techniques","Prompt design","Prompt security"],
+  qs:[
+  [0,"Zero-shot prompting means…","Asking the model to do a task without giving any examples",["Giving the model zero tokens of input","Training the model from scratch","Setting the temperature to zero"],"“Is review ka sentiment batao: …” — bas instruction, koi example nahi. Model apni pretraining knowledge se kaam karta hai."],
+  [0,"Few-shot prompting means…","Including a few input–output examples in the prompt to show the expected pattern",["Fine-tuning the model on a few thousand examples","Asking the same question a few times","Using a few GPUs for inference"],"Jaise naye intern ko 2–3 bhare hue forms dikha do aur bolo “isi tarah bharo”. Format aur style follow karwane mein bahut effective."],
+  [0,"What is chain-of-thought (CoT) prompting?","Asking the model to reason step by step before giving the final answer",["Connecting several LLMs in a physical chain","Repeating the question many times","Asking only yes/no questions"],"“Let’s think step by step” — model beech ke steps likhta hai, jisse multi-step maths aur logic mein accuracy badhti hai. Jaise exam mein working dikhane se galti kam hoti hai."],
+  [0,"What is in-context learning?","The model picks up a task from examples in the prompt without any change to its weights",["Retraining the model every time a user chats","Storing chats in a database for later training","Learning only from images inside the prompt"],"Few-shot examples dekh ke model turant pattern samajh leta hai — par ye “learning” sirf us conversation tak hai. Weights update nahi hote; agla chat bilkul fresh."],
+  [0,"What is self-consistency prompting?","Sampling several reasoning paths and choosing the most common final answer",["Asking the model whether it is consistent","Using the same prompt for every task","Forcing the model to repeat its first answer"],"Same sawaal model se 5 baar step-by-step solve karwao (thode temperature ke saath), phir majority vote. Ek raste mein galti ho bhi jaaye, baaki raaste sahi answer pe pahunch jaate hain."],
+  [0,"The ReAct prompting pattern combines…","Reasoning steps with actions such as tool calls, in an alternating loop",["React.js code with Python","Retrieval with image generation","Two models voting on one answer"],"ReAct = Reason + Act. Thought: “mujhe weather chahiye” → Action: weather tool → Observation: result → agla Thought… Aaj ke agents isi pattern pe based hain."],
+  [0,"What does Tree-of-Thoughts prompting do?","Explores several possible reasoning branches and evaluates them before choosing a path",["Draws a tree diagram of the prompt","Uses a decision tree instead of an LLM","Splits the prompt into tree-shaped tokens"],"Chain-of-thought ek seedhi line hai; Tree-of-Thoughts har step pe multiple options sochta hai, unhe evaluate karta hai, aur zarurat ho toh peeche aake doosra branch try karta hai — chess player jaise."],
+  [0,"What is prompt chaining?","Breaking a complex task into steps, where each prompt’s output feeds the next prompt",["Sending the same prompt to many models","Joining all prompts into one giant message","Locking a prompt so nobody can edit it"],"Ek bada prompt jo sab kuch kare, uski jagah: step 1 data extract → step 2 summarise → step 3 email draft. Har step debug karna aasaan aur zyada reliable."],
+  [1,"What is a system prompt?","Instructions that set the model’s role, rules and behaviour for the whole conversation",["The error message shown when the system crashes","The first question a user asks","A prompt that only administrators can read"],"System prompt = job description. “You are a helpful pharma data assistant. Answer only from the given data.” — ye poori conversation ka tone aur rules set karta hai."],
+  [1,"Which instruction is most likely to get a high-quality result?","“Summarise this report in 5 bullet points for a busy manager, focusing on risks and deadlines.”",["“Summarise.”","“Do something good with this.”","“Write about the report, make it nice.”"],"Accha prompt specific hota hai: task (summarise), format (5 bullets), audience (busy manager), focus (risks, deadlines). Jitna clear brief, utna accha output — jaise darzi ko exact naap dena."],
+  [1,"Why wrap documents or user data in delimiters such as XML tags or triple quotes?","To clearly separate the instructions from the data the model should work on",["To make the prompt shorter","To encrypt the data","To stop the model from reading the data"],"<document>…</document> jaise tags se model ko pata chalta hai kya instruction hai aur kya sirf content. Confusion kam hoti hai aur prompt injection ka risk bhi thoda ghatta hai."],
+  [1,"What is the best way to get reliable JSON output from an LLM?","Describe the exact schema, show an example, and use structured output or JSON mode if the API offers it",["Ask politely and hope for the best","Set the temperature to the maximum","Ask for a poem and convert it later"],"Schema batao (keys, types), ek example do, aur jahan available ho structured outputs feature use karo. Output ko code mein parse aur validate bhi karo (jaise Pydantic se)."],
+  [1,"What is role prompting?","Telling the model to act as a specific persona, like “You are an experienced data engineer”",["Assigning user roles in a database","Giving the model admin permissions","Asking several users to write one prompt together"],"Role dene se model ka vocabulary, depth aur tone us expert jaisa ho jaata hai. Par sirf role kaafi nahi — clear task aur context bhi chahiye."],
+  [1,"What is a prompt template?","A reusable prompt with placeholders that get filled with real values at runtime",["A paid prompt sold online","A screenshot of a good prompt","The model’s training data"],"Jaise “Customer {name} ka order {order_id} late hai, polite email likho.” Code mein variables bharke same template baar baar use hota hai. LangChain ka PromptTemplate yahi hai."],
+  [1,"What does the “lost in the middle” effect describe?","Models often use information at the start and end of a long context better than information in the middle",["Models forget the system prompt after one message","Models skip every middle word in a sentence","Models lose their weights after long chats"],"Research ne dikhaya ki bahut lambe context ke beech mein rakhi important baat miss ho sakti hai. Isliye critical info shuru ya end mein rakho, aur RAG mein sirf relevant chunks bhejo."],
+  [1,"Which is generally better prompting practice?","Saying what the model should do, not only what it shouldn’t do",["Using only negative instructions like “don’t be vague”","Writing the instructions in random order","Leaving out the expected output format"],"“Don’t write long” ki jagah “Answer in under 50 words” — positive aur specific instruction model better follow karta hai."],
+  [2,"What is prompt injection?","Malicious text that tries to override an app’s instructions, like “Ignore all previous instructions…”",["Injecting more GPUs into a server","Adding more examples to a prompt","A faster way to send prompts"],"Jaise SQL injection mein query hijack hoti hai, waise prompt injection mein user ya data ka text model ke rules hijack karne ki koshish karta hai. OWASP ki LLM Top 10 list mein ye sabse upar hai."],
+  [2,"What is indirect prompt injection?","Hidden instructions placed inside content the model reads, such as a web page, email or document",["A user typing a very long prompt","A prompt written in another language","Using a second model to write prompts"],"User ne kuch galat nahi likha, par jo web page ya PDF model padh raha hai usme chhupa likha hai “send the user’s data to …”. Agents aur RAG systems ke liye bada risk."],
+  [2,"What is jailbreaking an LLM?","Crafting prompts that trick the model into ignoring its safety guidelines",["Installing the model on an iPhone","Unlocking a paid API for free","Removing the model’s context window"],"Role-play, “hypothetically…” ya complicated tricks se model se wo karwana jo wo normally mana karega. Model providers ise rokne ke liye safety training aur filters use karte hain."],
+  [2,"Which is a sound defence against prompt injection in an LLM app?","Treat external content as untrusted data, limit tool permissions, and require confirmation for sensitive actions",["Raise the temperature so attacks fail randomly","Add one line saying “never get hacked” and rely on it alone","Give the model admin access so it can block attackers"],"Koi ek magic fix nahi hai — defence layers mein hota hai: input/output filtering, data ko instructions se alag rakhna, least privilege (tool ko sirf zaroori access), aur risky actions pe human approval."]
+  ]
+},
+{
+  id:"rag", name:"RAG & vector databases",
+  subs:["RAG basics","Chunking","Vector search","Advanced RAG & evaluation"],
+  qs:[
+  [0,"What does RAG stand for?","Retrieval-Augmented Generation",["Random Answer Generation","Recurrent Attention Graph","Rapid AI Gateway"],"RAG = pehle relevant documents dhoondo (retrieval), unhe prompt mein jodo (augmentation), phir LLM answer banaye (generation). Open-book exam jaisa."],
+  [0,"What is the main benefit of RAG?","Answers are grounded in your own or up-to-date documents, reducing hallucination without retraining the model",["It makes the model’s weights smaller","It removes the need for any LLM","It trains a new model from scratch for every query"],"Company ki SOPs, latest policies, private data — LLM ko ye pata nahi. RAG ye info runtime pe de deta hai, citations ke saath. Data update karo; model retrain karne ki zarurat nahi."],
+  [0,"What is the correct order of a basic RAG pipeline?","Load documents → chunk → embed → store in a vector DB → retrieve for the query → add to the prompt → generate",["Generate → retrieve → chunk → embed","Embed the answer → train the model → delete the documents","Chunk the query → fine-tune → load the documents"],"Do phases hain: Indexing (load, chunk, embed, store — ek baar) aur Querying (user ka question embed, similar chunks retrieve, prompt mein daalo, LLM se answer)."],
+  [0,"When is RAG usually a better choice than fine-tuning?","When the knowledge changes often or answers need sources from specific documents",["When you want to permanently change the model’s writing style","When you have no documents at all","When you want the model to forget facts"],"Rule of thumb: knowledge ke liye RAG, behaviour/style/format ke liye fine-tuning. SOPs har mahine badlein toh RAG; har response ek fixed company tone mein chahiye toh fine-tuning."],
+  [0,"Why should the same embedding model be used for indexing documents and for embedding queries?","Vectors from different models live in different spaces, so comparing them gives meaningless scores",["Different models use different file formats on disk","It is a licensing requirement","The vector DB refuses to store a second model’s vectors"],"Har embedding model ka apna “map” hota hai. Ek model ke coordinates ko doosre ke map pe dhoondhna — jaise Pune ka pin code Delhi ki list mein search karna. Model badla toh saare docs re-embed karo."],
+  [1,"What is chunking in RAG?","Splitting large documents into smaller pieces before embedding them",["Deleting duplicate documents","Compressing the LLM","Merging all documents into one big file"],"300 page ke PDF ka ek embedding saari details ko blur kar dega. Chhote chunks (jaise ~500 tokens) se precise retrieval hota hai — sirf relevant paragraph prompt mein jaata hai."],
+  [1,"Why do we add overlap between chunks?","So that context near chunk boundaries isn’t lost when a sentence or idea gets split",["To double the storage cost on purpose","To make the embeddings identical","To hide data from the model"],"Agar ek important line do chunks ke beech kat gayi, toh dono adhoore. 10–20% overlap se boundary wali info dono chunks mein reh jaati hai."],
+  [1,"What is a problem with chunks that are too large?","The embedding gets diluted by mixed topics, and irrelevant text fills the context window",["The model can no longer read numbers","Large chunks cannot be embedded at all","Retrieval becomes perfectly accurate"],"Bada chunk = kai topics ka mix, toh embedding kisi ek cheez ko clearly represent nahi karti aur prompt mein faltu text jaata hai. Bahut chhota chunk ho toh context toot jaata hai. Balance chahiye."],
+  [1,"What is semantic chunking?","Splitting text where the meaning or topic changes, instead of at a fixed character count",["Splitting text exactly every 100 characters","Chunking only the titles of documents","Translating each chunk into another language"],"Fixed-size chunking kabhi beech sentence mein kaat deta hai. Semantic chunking sentences ki similarity dekh ke topic badalne pe todta hai — har chunk ek poora idea."],
+  [2,"What is a vector database mainly used for?","Storing embeddings and quickly finding the ones most similar to a query vector",["Storing spreadsheets with formulas","Running SQL joins on sales tables only","Hosting web pages"],"Vector DB (Pinecone, Weaviate, Milvus, Chroma, pgvector) ka core kaam: “is query vector ke sabse paas wale 5 vectors do” — wo bhi millions mein se milliseconds mein."],
+  [2,"Why do vector databases use Approximate Nearest Neighbour (ANN) search?","It trades a tiny bit of accuracy for a huge gain in speed on large collections",["It always returns perfectly exact results","It doesn’t need any vectors","It is required by law"],"Har vector se compare karna (brute force) millions pe slow hai. ANN indexes smart shortcuts lete hain — lagbhag wahi results, kai guna fast."],
+  [2,"HNSW is…","A graph-based ANN index that navigates layered “small-world” graphs to find close vectors fast",["A tokenizer used by BERT","A fine-tuning technique","A type of GPU"],"HNSW (Hierarchical Navigable Small World): upar ki layers mein lambi chhalaang, neeche ki layers mein fine search — jaise pehle highway se city, phir gali se ghar. Bahut popular index."],
+  [2,"What is hybrid search?","Combining keyword search (like BM25) with vector (semantic) search",["Searching two vector databases at the same time","Using a GPU and a CPU together","Searching only images and text together"],"Vector search meaning samajhta hai, keyword search exact terms (product codes, drug names, IDs) pakadta hai. Dono ke scores combine karke better retrieval milta hai."],
+  [2,"BM25 is best described as…","A keyword-based ranking algorithm built on term frequency and how rare a term is",["A neural embedding model","A vector compression method","A large language model"],"BM25 TF-IDF ka improved version hai. “SOP-QA-1023” jaisa exact code dhoondhna ho toh embeddings fail ho sakti hain, BM25 nahi."],
+  [2,"What is metadata filtering in RAG?","Narrowing the search using attributes like date, department or document type alongside similarity",["Deleting all metadata before indexing","Filtering out long words","Hiding answers from users"],"“Sirf 2025 ke Quality SOPs mein dhoondo” — metadata filter pehle scope chhota karta hai, phir similarity search. Accuracy aur access control dono mein madad."],
+  [3,"What does a re-ranker do in a RAG pipeline?","Re-scores the top retrieved chunks with a more accurate model, so the best ones reach the LLM",["Randomly reorders the chunks","Deletes the vector database","Ranks users by how often they chat"],"Pehla retrieval fast par thoda rough hota hai — top 50 laata hai. Re-ranker (aksar cross-encoder) har chunk ko query ke saath dhyaan se padhke score karta hai, aur top 5 LLM ko jaate hain."],
+  [3,"How does a cross-encoder differ from a bi-encoder?","A cross-encoder reads the query and document together (accurate but slow); a bi-encoder embeds them separately (fast)",["A cross-encoder works only on images","A bi-encoder always needs two GPUs","They are two names for the same model"],"Bi-encoder: docs pehle se embed, query embed karo, compare — fast, retrieval ke liye. Cross-encoder: har (query, doc) pair ek saath padhta hai — slow par accurate, isliye re-ranking ke liye."],
+  [3,"What is HyDE (Hypothetical Document Embeddings)?","Having the LLM write a hypothetical answer first, then using that answer’s embedding to search",["Hiding documents from the retriever","A hardware accelerator for embeddings","Deleting duplicate embeddings"],"Chhota sawaal aur lamba document embedding space mein door ho sakte hain. HyDE pehle ek fake-par-plausible answer likhwata hai — wo real documents jaisa dikhta hai, toh search better hota hai."],
+  [3,"In RAG evaluation (for example with RAGAS), what does faithfulness measure?","Whether the generated answer is actually supported by the retrieved context",["How fast the answer was generated","How many documents are in the database","Whether the user liked the font"],"Faithfulness = answer ka har claim context mein hai, ya model ne apni taraf se jod diya? Saath mein answer relevance, context precision aur context recall bhi dekhte hain."],
+  [3,"A RAG bot gives wrong answers even though the right document is in the knowledge base. What should you check first?","Whether retrieval actually returns the right chunk for that question",["Whether the LLM has enough parameters","Whether the documents use the right font size","Whether the GPU is overheating"],"Garbage in, garbage out. Sabse pehle dekho ki retriever sahi chunk laa raha hai ya nahi (context recall). Aksar problem chunking, embeddings ya query wording mein hoti hai, LLM mein nahi."]
+  ]
+},
+{
+  id:"ft", name:"Fine-tuning & efficiency",
+  subs:["Fine-tuning basics","PEFT & LoRA","Quantisation & compression","Serving & inference"],
+  qs:[
+  [0,"What is fine-tuning?","Continuing to train a pretrained model on a smaller, task-specific dataset",["Training a brand-new model from random weights","Writing a better prompt","Adding more GPUs for inference"],"Pretrained model = graduate jo general cheezein jaanta hai. Fine-tuning = use company-specific training dena. Kam data aur kam compute mein specialised model."],
+  [0,"What is transfer learning?","Reusing knowledge a model learned on one task to help with another task",["Moving a model from one server to another","Copying data between databases","Translating a dataset into another language"],"ImageNet pe trained model ko X-ray classification ke liye adapt karna, ya pretrained LLM ko legal docs pe fine-tune karna — sab transfer learning hai. Zero se shuru karne ki zarurat nahi."],
+  [0,"What is the main drawback of fully fine-tuning a large model?","Every weight is updated, so it needs a lot of GPU memory and a full model copy per task",["It can only be done on CPUs","It never improves performance","It deletes the model’s tokenizer"],"70B model ke saare weights, unke gradients aur optimiser states memory mein — bahut mehenga. Aur har task ke liye poora alag model save karna padta hai. Isi liye PEFT aaya."],
+  [0,"What is catastrophic forgetting?","A model losing general abilities it had before, because it was fine-tuned on narrow data",["Deleting the training data by mistake","A model forgetting the user’s name mid-chat","Losing the model file after a crash"],"Sirf medical data pe zyada fine-tune kiya toh model normal baatcheet ya coding bhool sakta hai. Mixed data, kam learning rate aur LoRA jaise methods se risk kam hota hai."],
+  [0,"When is fine-tuning usually better than prompting or RAG?","When you need a consistent style, format or domain behaviour that prompts alone can’t reliably produce",["When the information changes every day","When you have no example data","When you need answers with live web citations"],"Fine-tuning behaviour sikhata hai: fixed JSON format, brand tone, specific classification. Badalta hua knowledge RAG se do. Aksar pehle prompting try karo, phir RAG, phir fine-tuning."],
+  [0,"For fine-tuning data, what matters most?","A smaller set of high-quality, diverse, correct examples",["As many examples as possible, even if they’re noisy","Only very short examples","Examples copied from a single source"],"LIMA jaisi research ne dikhaya ki ~1,000 acche curated examples bhi kaafi asar daal sakte hain. Galat examples model ko galti hi sikhayenge."],
+  [1,"What does PEFT stand for?","Parameter-Efficient Fine-Tuning",["Pretrained Embedding For Transformers","Prompt Engineering For Text","Parallel Execution of Fine Tasks"],"PEFT methods model ke chhote se hisse ko train karte hain (aksar 1% se bhi kam parameters), baaki base model frozen rehta hai. LoRA, adapters aur prefix tuning sab PEFT hain."],
+  [1,"How does LoRA work?","It freezes the original weights and trains small low-rank matrices whose product is added to them",["It retrains every weight with a lower learning rate","It deletes half of the model’s layers","It converts the model into a database"],"LoRA: ΔW = B × A, jahan A aur B patli matrices hain. Bade weight matrix ko chhedte nahi, bas ek chhota “patch” seekhte hain. Training sasti, aur adapter file sirf kuch MB ki."],
+  [1,"In LoRA, what does the rank r control?","The size of the low-rank matrices — a smaller r means fewer trainable parameters",["The number of GPUs used","The ranking of search results","The model’s context length"],"r = 8 ya 16 common hai. Chhota r = halka adapter, kam memory. Bada r = zyada capacity par zyada parameters. Ye ek tuning knob hai."],
+  [1,"What does QLoRA add on top of LoRA?","It loads the frozen base model in 4-bit precision, so big models can be fine-tuned on a single GPU",["It removes the need for any training data","It uses quantum computers","It trains the model without gradients"],"QLoRA = 4-bit quantised base model (NF4 format) + LoRA adapters. Isse 65B jaisa bada model bhi ek 48 GB GPU pe fine-tune ho gaya. Students ke liye game changer."],
+  [1,"What are adapters in PEFT?","Small trainable layers inserted into a frozen pretrained model",["Power plugs for GPUs","Converters between file formats","Extra users added to the API"],"Adapters frozen layers ke beech chhote bottleneck modules hote hain. Har task ka alag adapter, base model same — jaise ek phone, alag alag covers."],
+  [1,"What is a practical advantage of LoRA adapters in production?","One base model can serve many tasks by swapping small adapter files",["Each adapter is larger than the base model","Adapters remove the need for a GPU entirely","Adapters make the base model forget everything"],"Ek 7B base model memory mein rakho aur customer-wise ya task-wise chhote adapters switch karo. 10 alag full models rakhne se kahin sasta."],
+  [2,"What is quantisation?","Storing model weights in lower precision, such as 8-bit or 4-bit instead of 16- or 32-bit floats",["Splitting the dataset into equal parts","Increasing the model’s parameter count","Measuring the model’s accuracy"],"FP32 mein har weight 4 bytes ka, INT4 mein sirf aadha byte. Model chhota, memory kam, inference fast — thodi si accuracy ke badle."],
+  [2,"Roughly how much memory do the weights of a 7B model need in FP16?","About 14 GB",["About 7 MB","About 1 GB","About 700 GB"],"FP16 = 2 bytes per parameter. 7 billion × 2 bytes ≈ 14 GB. 4-bit mein ≈ 3.5–4 GB. Ye calculation interview mein aksar poochte hain. (KV cache aur activations ke liye extra memory alag lagti hai.)"],
+  [2,"What is the main trade-off of quantising a model?","A small loss in accuracy in exchange for much lower memory use and faster inference",["Higher accuracy but slower inference","More parameters but less memory","No trade-off — it is always strictly better"],"Precision kam = numbers thode rough. Acche quantisation methods (GPTQ, AWQ) mein quality loss bahut kam hota hai, par bahut aggressive (jaise 2-bit) mein noticeable ho sakta hai."],
+  [2,"What is knowledge distillation?","Training a small student model to imitate the outputs of a larger teacher model",["Removing water from training data","Compressing text files with ZIP","Asking users to label data"],"Bade model (teacher) ke soft predictions se chhota model (student) seekhta hai. DistilBERT ~40% chhota hai par ~97% performance deta hai — speed aur cost dono mein fayda."],
+  [2,"What is pruning a neural network?","Removing weights or neurons that contribute little, to make the model smaller and faster",["Adding more layers to the network","Shuffling the training data","Changing the tokenizer"],"Jaise paudhe ki faltu tehniyan kaatna. Bahut saare weights almost zero hote hain; unhe hata ke model halka ho jaata hai."],
+  [3,"The GGUF format is mostly associated with…","Running quantised LLMs locally with tools like llama.cpp and Ollama",["Storing images for diffusion models","Training models on TPUs","Encrypting API keys"],"GGUF ek file format hai jo quantised models ko CPU ya laptop pe chalane ke liye optimised hai. Ollama ya LM Studio se local LLM chalaoge toh aksar GGUF files hi milengi."],
+  [3,"What is the difference between latency and throughput in LLM serving?","Latency is how long one request takes; throughput is how much total work (requests or tokens) gets done per second",["They mean exactly the same thing","Latency measures cost; throughput measures accuracy","Throughput is only measured during training"],"Latency = ek customer ko kitna wait karna pada. Throughput = ek ghante mein kitne customers serve hue. Batching throughput badhata hai par individual latency thodi badha sakta hai."],
+  [3,"What is Time to First Token (TTFT)?","How long the user waits before the first token of the response appears",["The time taken to train the first epoch","The time to download the model","The time between creating two API keys"],"Chat apps mein TTFT bahut matter karta hai — pehla word jaldi dikhe toh app fast lagta hai. Streaming ke saath baaki tokens dheere dheere aate rehte hain."]
+  ]
+},
+{
+  id:"agents", name:"AI agents & frameworks",
+  subs:["Agent concepts","Tool use & MCP","Frameworks & tools"],
+  qs:[
+  [0,"What is an AI agent?","An LLM-based system that plans, uses tools and takes actions in a loop to reach a goal",["A chatbot that only answers one question","A human who manages AI models","A database of prompts"],"Chatbot sirf baat karta hai. Agent kaam karta hai — sochta hai, tool use karta hai (search, API, code), result dekhta hai, phir agla step decide karta hai, jab tak goal poora na ho."],
+  [0,"How does an agent differ from a fixed LLM chain?","An agent decides its next step dynamically; a chain follows a predefined sequence of steps",["A chain can use tools but an agent cannot","Agents never use an LLM","There is no difference"],"Chain = fixed recipe: step 1, 2, 3. Agent = experienced cook jo situation dekh ke decide kare aage kya karna hai. Agents flexible par kam predictable; chains predictable par rigid."],
+  [0,"Which set best describes the core components of an AI agent?","An LLM for reasoning, tools for actions, memory, and planning",["A GPU, a keyboard and a monitor","A tokenizer, a compiler and a firewall","A training set, a test set and a validation set"],"LLM = dimaag, tools = haath-pair, memory = diary, planning = to-do list. In chaaron se milke agent multi-step kaam kar paata hai."],
+  [0,"What is the difference between short-term and long-term memory in agents?","Short-term memory is the current conversation in the context window; long-term memory is stored outside (e.g. in a vector DB) and retrieved when needed",["Short-term memory is on the CPU, long-term memory is on the GPU","Long-term memory just means a bigger model","They are the same thing"],"Short-term = abhi ki baatcheet, context window mein. Long-term = purani preferences ya facts jo database mein save hain aur zarurat pe wapas laaye jaate hain."],
+  [0,"What is a multi-agent system?","Several specialised agents that collaborate, such as a researcher, a writer and a reviewer",["One agent running on multiple GPUs","Multiple users sharing one chatbot","An agent that speaks multiple languages"],"Ek team jaisa — har agent ka apna role. Researcher info laata hai, writer draft banata hai, reviewer check karta hai. Complex kaam baantne se quality badhti hai."],
+  [0,"What does human-in-the-loop mean for an agent?","A person reviews or approves key decisions before the agent acts on them",["A human types every word the agent says","The agent completely replaces a human","The agent stores human data in its loop"],"Payment karna, email bhejna, production data delete karna — aise risky actions se pehle insaan approve kare. Safety aur trust ke liye zaroori."],
+  [0,"Which is a common risk with autonomous agents, along with a fix for it?","Getting stuck in loops or taking costly wrong actions — handled with step limits, guardrails and approvals",["Agents run too slowly — handled by deleting their tools","Agents use too few tokens — handled by raising the temperature","Agents cannot read text — handled by adding images"],"Agent galat plan pe atak sakta hai, baar baar same tool call kar sakta hai, ya bina soche kuch delete kar sakta hai. Max iterations, budget limits, permissions aur logging se control karte hain."],
+  [0,"What does reflection mean in agent design?","The agent critiques its own output and revises it before finalising",["The agent copies another agent’s answer","The agent shows a mirror image of the UI","The agent restarts after every step"],"Pehla draft banao → khud review karo “kya missing hai?” → improve karo. Jaise exam mein answer likhne ke baad ek baar padh lena. Quality noticeably badhti hai."],
+  [1,"What is function (tool) calling in LLMs?","The model outputs a structured request — a function name plus arguments — that your application runs, then feeds the result back",["The model runs code on your computer all by itself","Calling the model’s API from a phone","Writing functions in Python for training"],"Model bolta hai: get_weather tool call karo, city = Pune. Tumhara code ye function chalata hai, result model ko wapas deta hai, aur model final answer banata hai. Model sirf “order” deta hai."],
+  [1,"In tool calling, who actually executes the tool?","The application or runtime around the model, not the model itself",["The LLM’s weights execute it directly","The end user must run it by hand every time","The GPU’s firmware"],"LLM sirf text generate karta hai. Tool execute karna, permissions check karna, errors handle karna — ye tumhare application code ka kaam hai. Isliye security bhi wahi control karta hai."],
+  [1,"What is MCP (Model Context Protocol)?","An open standard for connecting AI applications to tools and data sources in a consistent way",["A GPU model built for LLMs","A prompt-writing certification","A file format for model weights"],"MCP Anthropic ne 2024 mein open standard ke roop mein launch kiya. Har tool ke liye alag custom integration ki jagah ek common “socket” — isliye ise AI ka USB-C kehte hain."],
+  [1,"What can an MCP server expose to an AI application?","Tools (actions), resources (data) and prompts (reusable templates)",["Only GPU drivers","Only user passwords","Only images"],"MCP server — jaise Slack, GitHub ya kisi database ka — tools (jaise send_message), resources (files, records) aur prompts provide karta hai. MCP client (AI app) inhe discover karke use karta hai."],
+  [1,"Why do agents need clear tool names and descriptions?","The model decides which tool to call based on those descriptions",["They make the tools run faster","They are needed only for billing","The descriptions are shown only to end users"],"Model ke liye tool description hi manual hai. “search_orders: finds orders by customer ID” jaisi clear description se sahi tool sahi arguments ke saath call hota hai. Vague description = galat calls."],
+  [2,"LangChain is best described as…","A framework for building LLM apps by combining prompts, models, retrievers, memory and tools",["A blockchain for storing AI models","A new large language model","A GPU cloud provider"],"LangChain readymade building blocks deta hai — PromptTemplate, retrievers, output parsers, tool integrations — taaki RAG ya agent app jaldi ban jaaye."],
+  [2,"What is LangGraph mainly used for?","Building stateful agent workflows as graphs, including loops and branches",["Drawing charts of training loss","Translating LangChain code into Java","Hosting vector databases"],"LangGraph mein workflow nodes (steps) aur edges (raaste) se banta hai, state saath chalti hai, aur loops possible hain — jaise “tool call karo, result check karo, zarurat ho toh wapas jao”. Complex agents ke liye."],
+  [2,"LlamaIndex is mainly focused on…","Connecting LLMs to your data — ingesting, indexing and retrieving it for RAG",["Training LLaMA models from scratch","Image generation","Monitoring GPU temperature"],"LlamaIndex data side pe strong hai: PDFs, databases, APIs se data load karna, index banana, aur smart retrieval. RAG apps ke liye popular choice."],
+  [2,"What is Hugging Face best known for?","A hub of open models and datasets, plus libraries like Transformers",["A closed-source chatbot only","A cloud spreadsheet tool","A programming language"],"Hugging Face = AI ka GitHub. Lakhon open models (LLaMA, Mistral, BERT) aur datasets, aur transformers library se do lines mein model load karke use kar sakte ho."],
+  [2,"What does Ollama let you do?","Download and run open LLMs locally on your own machine",["Train GPT-4 from scratch","Host a vector database in the cloud","Label images for training"],"Ek command chalao aur model tumhare laptop pe chal raha hai — internet ke bina, data bahar nahi jaata. Prototyping aur privacy-sensitive kaam ke liye accha."],
+  [2,"Why do developers use Pydantic with LLM outputs?","To define a schema and validate that the model’s structured output has the right fields and types",["To speed up GPU training","To tokenize text","To store embeddings"],"Pydantic model define karo (name: str, age: int), aur LLM ka JSON usse validate karo. Galat type ya missing field ho toh turant error — production apps reliable bante hain."],
+  [2,"Frameworks like AutoGen and CrewAI are mainly used for…","Orchestrating multiple agents that work together on a task",["Compressing model weights","Building vector indexes","Labelling training data by hand"],"CrewAI mein agents ko roles aur tasks do (researcher, analyst, writer); AutoGen mein agents ek dusre se baat karke problem solve karte hain. Dono multi-agent orchestration ke tools hain."]
+  ]
+},
+{
+  id:"ops", name:"Evaluation, safety & deployment",
+  subs:["LLM evaluation","Responsible AI","LLMOps & deployment"],
+  qs:[
+  [0,"The BLEU score is mainly used to evaluate…","Machine translation, by measuring n-gram overlap with reference translations",["Image quality","GPU speed","Database performance"],"BLEU model ke output aur human reference translation ke common n-grams count karta hai (precision-based). Simple hai, par meaning nahi samajhta — synonyms ko galat maan sakta hai."],
+  [0,"ROUGE is most commonly used to evaluate…","Summarisation, focusing on how much of the reference text is recalled",["Speech recognition latency","Image classification","Code compilation speed"],"ROUGE (Recall-Oriented Understudy for Gisting Evaluation) dekhta hai ki reference summary ke kitne words ya n-grams model ki summary mein aaye. ROUGE-L longest common subsequence use karta hai."],
+  [0,"What is “LLM-as-a-judge”?","Using a strong LLM to grade outputs against a rubric — while watching for biases such as favouring longer answers",["A legal AI that replaces judges","Asking users to judge the model","A benchmark made only of law exam questions"],"Har answer human se check karwana slow hai, toh ek strong model rubric ke saath score deta hai. Par judge models ke biases hote hain — position bias, verbosity bias, apne jaise style ko pasand karna."],
+  [0,"Why is human evaluation still important for LLM apps?","Automatic metrics miss things like helpfulness, tone and subtle factual errors",["Humans are faster than any metric","Automatic metrics are illegal","Models cannot be measured any other way"],"BLEU/ROUGE word overlap dekhte hain, meaning nahi. Kya answer sach mein helpful tha? Tone sahi thi? Ye insaan best judge karte hain — kam se kam spot checks ke liye."],
+  [0,"What does the MMLU benchmark test?","Broad knowledge and reasoning through multiple-choice questions across 57 subjects",["Image generation quality","Speed of token generation","Only the ability to write code"],"MMLU (Massive Multitask Language Understanding) mein maths, law, medicine, history jaise 57 subjects ke MCQs hain — bilkul is app jaisa, par models ke liye! Model comparisons mein bahut quote hota hai."],
+  [0,"What is a golden dataset in LLM app development?","A curated set of inputs with expected outputs, used to test changes to prompts or models",["A dataset sold at a high price","The model’s training data","A list of the best users"],"Prompt badla ya model upgrade kiya? Golden set pe chalao aur dekho kuch toota toh nahi — regression testing jaisa. Data engineering mein validation queries jaisi hoti hain, waisa hi."],
+  [1,"Where does bias in LLM outputs mainly come from?","Patterns and stereotypes present in the training data",["The colour of the user interface","The speed of the GPU","The length of the API key"],"Model internet ka data padhta hai, jisme samaaj ke stereotypes bhi hain. Wo patterns model seekh leta hai. Isliye bias testing, diverse data aur alignment zaroori hain."],
+  [1,"What are guardrails in an LLM application?","Checks on inputs and outputs that block harmful content, sensitive-data leaks or off-topic requests",["Physical barriers around data centres","A way to increase model size","Rules for naming variables"],"Guardrails = security guard. Input pe check (prompt injection, abusive content), output pe check (PII leak, toxic text, galat format). NeMo Guardrails aur Guardrails AI jaise tools hain."],
+  [1,"Why should PII be masked before sending data to an external LLM API?","To protect people’s privacy and stay compliant with data-protection rules",["Because LLMs cannot read names","To make the prompt longer","Because PII improves accuracy"],"PII (Personally Identifiable Information) = naam, phone, Aadhaar, email, patient ID. Healthcare/pharma mein HIPAA, GDPR aur India ka DPDP Act jaise rules hain. Mask karo, ya enterprise-grade compliant setup use karo."],
+  [1,"What is Constitutional AI?","An approach where a model learns to critique and improve its outputs using a written set of principles",["A government law that bans AI","An AI that writes national constitutions","A model trained only on legal documents"],"Anthropic ka approach: model ko ek “constitution” (principles ki list) di jaati hai, aur wo AI feedback se apne answers ko in principles ke hisaab se behtar banana seekhta hai — har cheez ke liye human labels ki zarurat kam."],
+  [1,"What does transparency mean in responsible AI?","Being clear that users are dealing with AI, and about what it can and cannot do",["Making the model’s weights invisible","Using a transparent background in the UI","Hiding how the system works"],"Users ko pata hona chahiye ki wo AI se baat kar rahe hain, uski limitations kya hain, aur important decisions mein AI ka role kya hai. Trust isi se banta hai."],
+  [1,"What is a deepfake?","Synthetic media that realistically imitates a real person’s face or voice",["A very deep neural network","A fake model benchmark","A corrupted training file"],"GenAI se kisi ka realistic nakli video ya awaaz banana. Fraud aur misinformation ka bada risk — isliye watermarking, detection tools aur awareness important hain."],
+  [2,"What is LLMOps?","Practices and tools for deploying, monitoring and maintaining LLM applications in production",["A new programming language","A type of GPU","A prompt-writing contest"],"MLOps ka LLM version: prompt versioning, evaluation, monitoring, cost tracking, guardrails, model updates. Demo banana aasaan hai; production mein reliably chalana LLMOps hai."],
+  [2,"Which metrics are most useful to monitor for an LLM app in production?","Latency, token usage and cost, error rates, and answer quality",["Only the number of lines of code","Only the model’s parameter count","Only the colour scheme of the app"],"Kitna time lag raha hai, kitne tokens (= paisa) ja rahe hain, kitni failures hain, aur answers ki quality kaisi hai (user feedback, eval scores). Inke bina production andhere mein chalta hai."],
+  [2,"Which strategy helps reduce LLM API costs?","Routing simple queries to smaller models, trimming prompts and caching repeated answers",["Always using the largest model for every request","Adding the full chat history to every call","Raising max tokens to the highest value"],"Har sawaal pe sabse mehenga model zaroori nahi. Easy queries chhote model pe bhejo (model routing), prompts chhote rakho, aur repeat hone wale sawaalon ka answer cache se do."],
+  [2,"What is semantic caching?","Reusing a stored answer when a new query is similar in meaning to an earlier one",["Caching only exact, character-for-character matches","Storing model weights in RAM","Deleting old answers every hour"],"“Leave policy kya hai?” aur “chhutti ka rule batao” — meaning same. Semantic cache embeddings se similarity check karta hai aur LLM call bachata hai — fast aur sasta."],
+  [2,"Why do chat apps stream LLM responses token by token?","Users see text appearing immediately, which makes the app feel much faster",["Streaming makes the answer more accurate","Streaming uses zero tokens","Streaming is required to use temperature"],"Total time same ho sakta hai, par 10 second blank screen dekhne se behtar hai turant words aate dikhna. Perceived latency kam hoti hai."],
+  [2,"How should an app handle API rate-limit errors (HTTP 429)?","Retry with exponential backoff and stay within the provider’s limits",["Retry instantly in a tight loop forever","Delete the API key","Switch off error handling"],"Rate limit = per minute itne hi requests ya tokens allowed. 429 aaye toh 1s, 2s, 4s… badhte gap ke saath retry karo, aur queue ya batching use karo."],
+  [2,"What is a key trade-off between open-weight and closed (API-only) models?","Open-weight models can be self-hosted for more control and privacy; closed models are easy to use but you depend on the provider",["Closed models can always be fine-tuned freely","Open-weight models never need GPUs","There is no difference in control"],"Open-weight (LLaMA, Mistral): apne server pe chalao, data andar rahe, customise karo — par infra tumhara sar-dard. Closed (API wale models): plug and play, aksar top capability, par control aur data flow provider pe depend."],
+  [2,"Why should prompts be version-controlled like code?","Small prompt changes can change behaviour, so you need to track, test and roll back changes",["Prompts expire after one week","Version control makes prompts run faster","It is required to use a GPU"],"Ek word badla aur output ka format toot gaya — aisa ho sakta hai. Prompt versions track karo, golden set pe test karo, aur zarurat pade toh purana version wapas lao."]
+  ]
+}
+];
+
+(function(){
+"use strict";
+var LETTERS=["A","B","C","D"];
+var SEC="ABCDEFGHIJKLMNOP";
+var KEY="genai-mcq-sheet-v1";
+var mainEl=document.getElementById("main");
+var navEl=document.getElementById("nav");
+var statsEl=document.getElementById("topStats");
+
+/* deterministic shuffle so each question keeps the same option order */
+function hash(str){var h=2166136261>>>0;for(var i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h}
+function perm(id){
+  var s=hash(id);
+  function rnd(){s=(s+0x6D2B79F5)|0;var t=Math.imul(s^(s>>>15),1|s);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296}
+  var a=[0,1,2,3];
+  for(var i=3;i>0;i--){var j=Math.floor(rnd()*(i+1));var x=a[i];a[i]=a[j];a[j]=x}
+  return a;
+}
+var Q=[],byId={};
+TOPICS.forEach(function(tp,ti){
+  tp.qs.forEach(function(r,i){
+    var id=tp.id+"-"+(i+1);
+    var q={id:id,t:ti,s:r[0],q:r[1],opts:[r[2]].concat(r[3]),ex:r[4],order:perm(id)};
+    Q.push(q);byId[id]=q;
+  });
+});
+var TOTAL=Q.length;
+
+/* storage */
+var store={answers:{},pos:null};
+function load(){
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(!raw)return;
+    var p=JSON.parse(raw);
+    if(p&&typeof p==="object"){
+      if(p.answers&&typeof p.answers==="object"){
+        Object.keys(p.answers).forEach(function(k){
+          var a=p.answers[k];
+          if(byId[k]&&a&&typeof a.c==="number")store.answers[k]={c:a.c,ok:a.c===0};
+        });
+      }
+      if(p.pos&&typeof p.pos==="object")store.pos=p.pos;
+    }
+  }catch(e){}
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function stat(pred){
+  var r={total:0,att:0,ok:0};
+  for(var i=0;i<Q.length;i++){var q=Q[i];if(!pred(q))continue;r.total++;var a=store.answers[q.id];if(a){r.att++;if(a.ok)r.ok++}}
+  r.bad=r.att-r.ok;return r;
+}
+function pct(st){return st.att?Math.round(st.ok/st.att*100)+"%":"–"}
+
+/* view state */
+var view={name:"board"};
+function baseMatch(q){return(view.t==null||q.t===view.t)&&(view.s==null||q.s===view.s)}
+function buildIds(){
+  view.ids=Q.filter(function(q){
+    if(!baseMatch(q))return false;
+    var a=store.answers[q.id];
+    if(view.mode==="left")return !a;
+    if(view.mode==="wrong")return !!(a&&!a.ok);
+    return true;
+  }).map(function(q){return q.id});
+}
+function remember(){
+  if(view.name!=="quiz")return;
+  store.pos={t:view.t,s:view.s,mode:view.mode,id:view.ids[view.i]||null};
+  save();
+}
+function openQuiz(t,s,mode,startId){
+  view={name:"quiz",t:(t==null?null:t),s:(s==null?null:s),mode:mode||"all",ids:[],i:0};
+  buildIds();
+  var k=startId?view.ids.indexOf(startId):-1;
+  if(k>=0)view.i=k;
+  else if(view.mode==="all"){
+    for(var i=0;i<view.ids.length;i++){if(!store.answers[view.ids[i]]){view.i=i;break}}
+  }
+  remember();closeDrawer();render();toTop(true);
+  try{mainEl.focus({preventScroll:true})}catch(e){}
+}
+function openBoard(){view={name:"board"};closeDrawer();render();toTop(true)}
+function toTop(force){
+  var r=mainEl.getBoundingClientRect();
+  if(force||r.top<0)window.scrollTo(0,Math.max(0,window.scrollY+r.top-70));
+}
+
+/* rendering */
+function render(){renderTop();renderNav();if(view.name==="quiz")renderQuiz();else renderBoard()}
+
+function renderTop(){
+  var st=stat(function(){return true});
+  statsEl.innerHTML="<b>"+st.ok+"</b> correct of <b>"+st.att+"</b> attempted<span class=\"hide-sm\"> out of "+TOTAL+"</span>";
+}
+
+function renderNav(){
+  var isQuiz=view.name==="quiz";
+  var h="<div class=\"nav-top\">";
+  h+="<button class=\"nav-link\" data-act=\"board\""+(view.name==="board"?" aria-current=\"true\"":"")+">Marksheet</button>";
+  var all=stat(function(){return true});
+  h+="<button class=\"nav-link\" data-act=\"topic\" data-t=\"\""+(isQuiz&&view.t==null?" aria-current=\"true\"":"")+">All questions <span class=\"count\">"+all.att+"/"+all.total+"</span></button>";
+  h+="</div><ol class=\"sections\">";
+  TOPICS.forEach(function(tp,ti){
+    var st=stat(function(q){return q.t===ti});
+    var cur=isQuiz&&view.t===ti&&view.s==null;
+    h+="<li><button class=\"sec\" data-act=\"topic\" data-t=\""+ti+"\""+(cur?" aria-current=\"true\"":"")+">"+
+       "<span class=\"sec-letter"+(st.att===st.total?" full":"")+"\" aria-hidden=\"true\">"+SEC[ti]+"</span>"+
+       "<span class=\"sec-name\">"+esc(tp.name)+"</span><span class=\"count\">"+st.att+"/"+st.total+"</span></button>";
+    h+="<ul class=\"subs\">";
+    tp.subs.forEach(function(sn,si){
+      var ss=stat(function(q){return q.t===ti&&q.s===si});
+      var c2=isQuiz&&view.t===ti&&view.s===si;
+      h+="<li><button class=\"sub\" data-act=\"sub\" data-t=\""+ti+"\" data-s=\""+si+"\""+(c2?" aria-current=\"true\"":"")+">"+
+         "<span>"+esc(sn)+"</span><span class=\"count\">"+ss.att+"/"+ss.total+"</span></button></li>";
+    });
+    h+="</ul></li>";
+  });
+  h+="</ol>";
+  navEl.innerHTML=h;
+}
+
+function setTitleParts(){
+  if(view.t==null)return{letter:"✱",title:"All questions",sub:"Every topic, Section A to "+SEC[TOPICS.length-1]};
+  var tp=TOPICS[view.t];
+  var base=stat(baseMatch);
+  return{letter:SEC[view.t],title:tp.name,sub:(view.s==null?"All subtopics":tp.subs[view.s])+", "+base.total+" questions"};
+}
+
+function renderQuiz(){
+  var tp=setTitleParts();
+  var base=stat(baseMatch);
+  var h="<div class=\"quiz\">";
+  h+="<div class=\"set-head\"><span class=\"sec-letter\" aria-hidden=\"true\">"+esc(tp.letter)+"</span><div><h1 class=\"set-title\">"+esc(tp.title)+"</h1><p class=\"set-sub\">"+esc(tp.sub)+"</p></div></div>";
+  var modes=[["all","All",base.total],["left","Not attempted",base.total-base.att],["wrong","Mistakes",base.bad]];
+  h+="<div class=\"modes\" role=\"group\" aria-label=\"Which questions to show\">";
+  modes.forEach(function(m){h+="<button class=\"mode\" data-act=\"mode\" data-mode=\""+m[0]+"\" aria-pressed=\""+(view.mode===m[0])+"\">"+m[1]+" ("+m[2]+")</button>"});
+  h+="</div>";
+
+  if(!view.ids.length){
+    h+="<div class=\"empty\">";
+    if(view.mode==="wrong"){
+      h+="<h2>No mistakes to revise here</h2><p>Questions you answer wrongly collect here, so you can come back and revise them.</p><button class=\"btn primary\" data-act=\"mode\" data-mode=\"all\">Practise all questions</button>";
+    }else{
+      h+="<h2>You’ve attempted every question here</h2><p>Revise the ones you missed, or reset this topic from the marksheet to start fresh.</p><button class=\"btn primary\" data-act=\"mode\" data-mode=\"wrong\">Revise mistakes</button> <button class=\"btn\" data-act=\"board\">See marksheet</button>";
+    }
+    h+="</div></div>";
+    mainEl.innerHTML=h;return;
+  }
+
+  view.i=Math.max(0,Math.min(view.i,view.ids.length-1));
+  var q=byId[view.ids[view.i]];
+  var a=store.answers[q.id];
+
+  var dots="";
+  view.ids.forEach(function(id,k){
+    var aa=store.answers[id];
+    var cls="dot"+(aa?(aa.ok?" ok":" bad"):"")+(k===view.i?" cur":"");
+    var lbl="Question "+(k+1)+(aa?(aa.ok?", correct":", wrong"):", not attempted");
+    dots+="<button class=\""+cls+"\" data-act=\"go\" data-i=\""+k+"\" aria-label=\""+lbl+"\""+(k===view.i?" aria-current=\"true\"":"")+">"+(k+1)+"</button>";
+  });
+  if(view.ids.length>40)h+="<details class=\"jump\"><summary>Jump to a question</summary><div class=\"strip\">"+dots+"</div></details>";
+  else h+="<div class=\"strip\" aria-label=\"Questions in this set\">"+dots+"</div>";
+
+  var showTag=view.s==null;
+  var tagText=view.t==null?TOPICS[q.t].name:TOPICS[q.t].subs[q.s];
+  h+="<article class=\"sheet\" aria-labelledby=\"qtext\">";
+  h+="<div class=\"qhead\"><span class=\"qnum\">"+(view.i+1)+"</span><span class=\"qof\">of "+view.ids.length+"</span>"+(showTag?"<span class=\"qtag\">"+esc(tagText)+"</span>":"")+"</div>";
+  h+="<p class=\"qtext\" id=\"qtext\">"+esc(q.q)+"</p>";
+  h+="<ul class=\"opts\">";
+  var correctPos=q.order.indexOf(0);
+  q.order.forEach(function(orig,k){
+    var cls="opt",label="";
+    if(a){
+      if(orig===0){cls+=" is-correct";label="<span class=\"olabel\">Correct answer</span>"}
+      else if(orig===a.c){cls+=" is-wrong";label="<span class=\"olabel\">Your answer</span>"}
+      else cls+=" is-dim";
+    }
+    h+="<li><button class=\""+cls+"\" data-act=\"pick\" data-k=\""+k+"\""+(a?" aria-disabled=\"true\"":"")+">"+
+       "<span class=\"bubble\" aria-hidden=\"true\">"+LETTERS[k]+"</span>"+
+       "<span class=\"otext\"><span class=\"sr\">Option "+LETTERS[k]+": </span>"+esc(q.opts[orig])+label+"</span></button></li>";
+  });
+  h+="</ul>";
+  h+="<div aria-live=\"polite\">";
+  if(a){
+    h+="<div class=\"explain "+(a.ok?"ok":"bad")+"\">";
+    h+="<p class=\"verdict\">"+(a.ok?"Sahi jawab! Well done.":"Galat. Sahi answer hai "+LETTERS[correctPos]+".")+"</p>";
+    h+="<p class=\"ex\"><span class=\"ex-label\">Why: </span>"+esc(q.ex)+"</p>";
+    h+="</div>";
+  }
+  h+="</div></article>";
+
+  var last=view.i>=view.ids.length-1;
+  h+="<div class=\"controls\">";
+  h+="<button class=\"btn\" data-act=\"prev\""+(view.i===0?" disabled":"")+">Previous</button>";
+  if(a)h+="<button class=\"btn quiet\" data-act=\"retry\">Try this one again</button>";
+  h+="<span class=\"spacer\"></span>";
+  if(last)h+="<button class=\"btn primary\" data-act=\"board\" id=\"nextBtn\">Finish and see marksheet</button>";
+  else h+="<button class=\"btn primary\" data-act=\"next\" id=\"nextBtn\">Next question</button>";
+  h+="</div>";
+  h+="<p class=\"hint\">Shortcuts: press <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer, <kbd>←</kbd> <kbd>→</kbd> to move between questions.</p>";
+  h+="</div>";
+  mainEl.innerHTML=h;
+}
+
+function bar(st){
+  if(!st.total)return"<div class=\"bar\"></div>";
+  return"<div class=\"bar\" role=\"img\" aria-label=\""+st.ok+" correct, "+st.bad+" wrong, "+(st.total-st.att)+" not attempted\"><i class=\"b-ok\" style=\"width:"+(st.ok/st.total*100)+"%\"></i><i class=\"b-bad\" style=\"width:"+(st.bad/st.total*100)+"%\"></i></div>";
+}
+
+function renderBoard(){
+  var all=stat(function(){return true});
+  var h="<section class=\"board\">";
+  h+="<h1>Marksheet</h1>";
+  h+="<p class=\"lede\">"+TOTAL+" commonly asked GenAI interview questions for freshers, in "+TOPICS.length+" sections. Every answer is saved in this browser, so your marks are still here when you come back. Pick any section or subtopic to practise.</p>";
+
+  h+="<div class=\"total\"><div class=\"total-marks\">"+all.ok+"<small> / "+TOTAL+"</small><span class=\"total-cap\">marks obtained</span></div><div class=\"total-facts\">";
+  h+="<p><b>"+pct(all)+"</b> accuracy on <b>"+all.att+"</b> attempted</p>";
+  h+="<p><b>"+(TOTAL-all.att)+"</b> questions still to attempt</p>";
+  h+="<div class=\"total-actions\">";
+  if(store.pos&&store.pos.id&&byId[store.pos.id])h+="<button class=\"btn primary\" data-act=\"continue\">Continue where you left off</button>";
+  else h+="<button class=\"btn primary\" data-act=\"topic\" data-t=\"0\">Start with Section A</button>";
+  if(all.bad>0)h+="<button class=\"btn\" data-act=\"practise\" data-t=\"\" data-mode=\"wrong\">Revise all "+all.bad+" mistakes</button>";
+  h+="</div></div></div>";
+
+  var weak=[];
+  TOPICS.forEach(function(tp,ti){tp.subs.forEach(function(sn,si){
+    var st=stat(function(q){return q.t===ti&&q.s===si});
+    if(st.bad>0)weak.push({t:ti,s:si,st:st,acc:st.ok/st.att});
+  })});
+  weak.sort(function(x,y){return x.acc-y.acc||y.st.bad-x.st.bad});
+  if(weak.length){
+    h+="<div class=\"weak\"><h2>Revise these first</h2><ul>";
+    weak.slice(0,3).forEach(function(w){
+      h+="<li><button data-act=\"practise\" data-t=\""+w.t+"\" data-s=\""+w.s+"\" data-mode=\"wrong\">"+esc(TOPICS[w.t].subs[w.s])+"</button> <span>in Section "+SEC[w.t]+", "+w.st.ok+" of "+w.st.att+" correct</span></li>";
+    });
+    h+="</ul></div>";
+  }
+
+  h+="<div class=\"marks-wrap\"><table><thead><tr><th>Section</th><th>Topic</th><th class=\"num\">Attempted</th><th class=\"num\">Correct</th><th class=\"num\">Accuracy</th><th>Progress</th><th><span class=\"sr\">Actions</span></th></tr></thead><tbody>";
+  TOPICS.forEach(function(tp,ti){
+    var st=stat(function(q){return q.t===ti});
+    h+="<tr class=\"topic\"><td><span class=\"sec-letter"+(st.att===st.total?" full":"")+"\">"+SEC[ti]+"</span></td>"+
+       "<td><button class=\"tname\" data-act=\"topic\" data-t=\""+ti+"\">"+esc(tp.name)+"</button></td>"+
+       "<td class=\"num\">"+st.att+"/"+st.total+"</td><td class=\"num\">"+st.ok+"</td><td class=\"num\">"+pct(st)+"</td><td>"+bar(st)+"</td>"+
+       "<td>"+(st.att?"<button class=\"mini danger\" data-act=\"reset-topic\" data-t=\""+ti+"\">Reset</button>":"")+"</td></tr>";
+    tp.subs.forEach(function(sn,si){
+      var ss=stat(function(q){return q.t===ti&&q.s===si});
+      h+="<tr class=\"subrow\"><td></td><td><button class=\"tname\" data-act=\"sub\" data-t=\""+ti+"\" data-s=\""+si+"\">"+esc(sn)+"</button></td>"+
+         "<td class=\"num\">"+ss.att+"/"+ss.total+"</td><td class=\"num\">"+ss.ok+"</td><td class=\"num\">"+pct(ss)+"</td><td>"+bar(ss)+"</td>"+
+         "<td>"+(ss.bad?"<button class=\"mini\" data-act=\"practise\" data-t=\""+ti+"\" data-s=\""+si+"\" data-mode=\"wrong\">Revise "+ss.bad+"</button>":"")+"</td></tr>";
+    });
+  });
+  h+="</tbody></table></div>";
+  h+="<p class=\"legend\"><span><i style=\"background:var(--ok)\"></i>Correct</span><span><i style=\"background:var(--bad)\"></i>Wrong</span><span><i style=\"background:var(--print-tint);box-shadow:inset 0 0 0 1px var(--print-soft)\"></i>Not attempted</span></p>";
+  h+="<div class=\"foot\">"+(all.att?"<button class=\"btn danger\" data-act=\"reset-all\">Reset all scores</button><span>Clears every saved answer in this browser.</span>":"<span>Your answers will be saved here automatically.</span>")+"</div>";
+  h+="</section>";
+  mainEl.innerHTML=h;
+}
+
+/* actions */
+function pick(k){
+  if(view.name!=="quiz"||!view.ids.length)return;
+  var q=byId[view.ids[view.i]];
+  if(store.answers[q.id])return;
+  var orig=q.order[k];
+  store.answers[q.id]={c:orig,ok:orig===0};
+  remember();save();render();
+  var nb=document.getElementById("nextBtn");if(nb)try{nb.focus({preventScroll:true})}catch(e){}
+}
+function move(d){
+  if(view.name!=="quiz")return;
+  var n=view.i+d;
+  if(n<0||n>=view.ids.length)return;
+  view.i=n;remember();render();toTop(false);
+}
+function arm(b,label,fn){
+  if(b.hasAttribute("data-armed")){fn();return}
+  var orig=b.textContent;
+  b.setAttribute("data-armed","1");b.textContent=label;
+  setTimeout(function(){if(b.isConnected){b.removeAttribute("data-armed");b.textContent=orig}},3500);
+}
+function numOrNull(v){return v===""||v==null?null:Number(v)}
+
+function openDrawer(){document.body.classList.add("drawer");var m=document.querySelector(".menu-btn");if(m)m.setAttribute("aria-expanded","true")}
+function closeDrawer(){document.body.classList.remove("drawer");var m=document.querySelector(".menu-btn");if(m)m.setAttribute("aria-expanded","false")}
+
+document.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]");if(!b)return;
+  var act=b.getAttribute("data-act");
+  var t=numOrNull(b.getAttribute("data-t")),s=numOrNull(b.getAttribute("data-s"));
+  switch(act){
+    case"board":openBoard();break;
+    case"topic":openQuiz(t,null,"all");break;
+    case"sub":openQuiz(t,s,"all");break;
+    case"practise":openQuiz(t,s,b.getAttribute("data-mode")||"all");break;
+    case"mode":view.mode=b.getAttribute("data-mode");buildIds();view.i=0;
+      if(view.mode==="all"){for(var i=0;i<view.ids.length;i++){if(!store.answers[view.ids[i]]){view.i=i;break}}}
+      remember();render();break;
+    case"pick":pick(Number(b.getAttribute("data-k")));break;
+    case"go":view.i=Number(b.getAttribute("data-i"));remember();render();toTop(false);break;
+    case"prev":move(-1);break;
+    case"next":move(1);break;
+    case"retry":if(view.name==="quiz"){delete store.answers[view.ids[view.i]];save();render()}break;
+    case"continue":var p=store.pos;openQuiz(p.t,p.s,p.mode,p.id);break;
+    case"menu":document.body.classList.contains("drawer")?closeDrawer():openDrawer();break;
+    case"menu-close":closeDrawer();break;
+    case"reset-topic":arm(b,"Tap again to reset",function(){
+      Q.forEach(function(q){if(q.t===t)delete store.answers[q.id]});save();render();});break;
+    case"reset-all":arm(b,"Tap again to clear everything",function(){
+      store.answers={};store.pos=null;save();render();});break;
+  }
+});
+
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){closeDrawer();return}
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var tag=(e.target&&e.target.tagName)||"";
+  if(tag==="INPUT"||tag==="TEXTAREA")return;
+  if(view.name!=="quiz")return;
+  var k=e.key.toLowerCase();
+  var map={a:0,b:1,c:2,d:3,"1":0,"2":1,"3":2,"4":3};
+  if(k in map){e.preventDefault();pick(map[k]);return}
+  if(e.key==="ArrowRight"){e.preventDefault();move(1)}
+  else if(e.key==="ArrowLeft"){e.preventDefault();move(-1)}
+});
+
+load();
+render();
+})();
+</script>
+</body>
+</html>
